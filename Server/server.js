@@ -11,6 +11,7 @@ const PORT = process.env.PORT
 const userRouter = require('./routes/userRoutes')
 const groupRouter = require('./routes/groupRoutes')
 const transactionRouter = require('./routes/transactionRoutes')
+const seedDbData = require("./controllers/seedDbController")
 
 mongoose.connect(MONGO_URI)
 
@@ -30,9 +31,7 @@ app.get('/',(req,res)=>{
     res.send("Hello world")
 })
 
-app.post('/seedDataBase', (req,res)=>{
-
-})
+app.post('/seedDbData', seedDbData)
 
 mongoose.connection.once("open", ()=>{
     console.log("DB connected")

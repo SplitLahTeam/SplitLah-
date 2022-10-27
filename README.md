@@ -1,4 +1,4 @@
-# SplitLah! - The perfect app to track shared expenses amongst friends!
+# SplitLah! - The truly Singaporean way to track shared expenses!
 
 Meeting up friends and colleagues for different activities is fun! However, dealing with money takes some fun away! This app is intended to be used to keep track of money spent in group setting and make it easier settle with each other
 

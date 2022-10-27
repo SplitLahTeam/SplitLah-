@@ -1,6 +1,6 @@
 const express =require("express")
 const transactionRouter = express.Router()
-import {getTransactions, registerTransaction, updateTransaction} from '../controllers/transactionController'
+const {getTransactions, registerTransaction, updateTransaction} = require('../controllers/transactionController')
 
 transactionRouter.get('/', getTransactions)
 transactionRouter.post('/register', registerTransaction)

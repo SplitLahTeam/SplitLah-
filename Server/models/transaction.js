@@ -6,7 +6,8 @@ const transactionSchema = new mongoose.Schema({
     paidBy: {type:mongoose.Schema.Types.ObjectId, ref:"user"},
     receivedBy: {type:mongoose.Schema.Types.ObjectId, ref:"user"},
     amount: Number,
-    description: String
+    description: String,
+    groupId : {type: mongoose.Schema.Types.ObjectId, ref:"group"}
 }, {
     timestamps:true
 })
