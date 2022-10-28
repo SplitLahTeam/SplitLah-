@@ -51,15 +51,15 @@ const seedDbdata = async (req,res) => {
             const groupBC = await Group.findOne({name: "BC"})
             const groupCA = await Group.findOne({name: "CA"})
 
-            transactionData[0].groupID = groupAB._id
-            transactionData[1].groupID = groupAB._id
-            transactionData[2].groupID = groupAB._id
-            transactionData[3].groupID = groupBC._id
-            transactionData[4].groupID = groupBC._id
-            transactionData[5].groupID = groupBC._id
-            transactionData[6].groupID = groupCA._id
-            transactionData[7].groupID = groupCA._id
-            transactionData[8].groupID = groupCA._id
+            transactionData[0].groupId= groupAB._id
+            transactionData[1].groupId= groupAB._id
+            transactionData[2].groupId= groupAB._id
+            transactionData[3].groupId= groupBC._id
+            transactionData[4].groupId= groupBC._id
+            transactionData[5].groupId= groupBC._id
+            transactionData[6].groupId= groupCA._id
+            transactionData[7].groupId= groupCA._id
+            transactionData[8].groupId= groupCA._id
 
             transactionData[0].createdBy = userA._id
             transactionData[0].paidBy = userA._id

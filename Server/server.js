@@ -19,7 +19,10 @@ app.use(express.json())
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1*24*3600*1000
+    }
 }))
 
 app.use('/users',userRouter)
