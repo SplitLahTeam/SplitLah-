@@ -1,10 +1,11 @@
 
+const User = require('../models/user')
 const Group = require("../models/group")
 const Transaction = require("../models/transaction")
 
 const registerGroup = (req, res) => {
 // req should contain - All schema entries of "Group" collection
-
+    
 }
 
 const updateGroup = (req, res) => {
