@@ -19,7 +19,7 @@ const seedDbdata = async (req,res) => {
         await User.create(userData)
         // res.json(updatedData)
     } catch (error) {
-        res.json({msg: "Failed at User Collection seeding",
+        res.status(500).json({msg: "Failed at User Collection seeding",
             error})
     }  
 
@@ -40,7 +40,7 @@ const seedDbdata = async (req,res) => {
             await Group.create(groupData)
             // res.json({msg: "DataBase Seeding Done"})
         } catch (error){
-            res.json({msg: "Failed at group collection seeding"})
+            res.status(500).json({msg: "Failed at group collection seeding"})
         }
 
 
@@ -93,12 +93,12 @@ const seedDbdata = async (req,res) => {
 
             await Transaction.deleteMany({})
             await Transaction.create(transactionData)
-            res.json({msg: "Seeding Completed!"})
+            res.status(201).json({msg: "Seeding Completed!"})
         }catch (error) {
-            res.json({msg: "Failed at Transaction Collection creation"})
+            res.status(500).json({msg: "Failed at Transaction Collection creation"})
         }
     } catch (error) {
-        res.json({msg: "Error while finding userID based on name"})
+        res.status(500).json({msg: "Error while finding userID based on name"})
     }
 }
 
