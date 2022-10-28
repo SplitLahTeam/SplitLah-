@@ -13,7 +13,7 @@ if ((!name)||(!userList)) {
 }
 
 let invalidUserId = false
-userList.foreach((userId)=>{
+userList.forEach((userId)=>{
     const user = User.findById(userId)
     if (!user) {
         res.status(400).json({msg: "Inaccurate user ID details"})
@@ -32,9 +32,19 @@ try {
 }
 }
 
+
+
 const updateGroup = (req, res) => {
 // req should contain - All schema entries of "Group" collection
+    const id = req.body.id
+    const name = req.body.name
+    const userList = req.body.userList
 
+    if ((!id)||(!name)||(!userList)) {
+        res.status(400).json({
+            msg: ""
+        })
+    }
 }
 
 const getGroupsSummary = (req, res) => {
