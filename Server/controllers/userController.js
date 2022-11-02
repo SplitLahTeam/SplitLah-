@@ -1,5 +1,7 @@
 
 const User = require("../models/user")
+const Group = require("../models/group")
+const Transaction = require("../models/transaction")
 const bcrypt = require("bcrypt")
 
 const registerUser = (req,res)=>{
@@ -54,4 +56,24 @@ const logoutUser = (req, res) => {
     res.status(202).json({msg: "User successfully logged out!"})
 }
 
-module.exports = {registerUser, loginUser, updateUser, logoutUser}
+
+const getUserSummary = async (req,res) => {
+    try {
+        const userId = req.session.userId
+        const user = await User.findById(userId, ["name"])
+        const groupList = await Group.find({userList : {$all: [userId]}},["name"])
+        const transactionReceivedList = await Transaction.find({receivedBy:userId},["_id","paidBy","amount","description","updatedAt"],{limit:10, sort:{updatedAt: -1}})
+        const transactionPaidList = await Transaction.find({paidBy:userId},["_id","paidBy","amount","description","updatedAt"],{limit:10, sort:{updatedAt: -1}})
+        const transactionReceivedAmountList = await Transaction.find({receivedBy:userId},["amount"])
+        const transactionPaidAmountList = await Transaction.find({paidBy:userId},["amount"])
+        const netReceivedAmount = (transactionReceivedAmountList.map((transaction)=>transaction.amount)).reduce((prev,curr)=>(prev+curr),0)
+        const netPaidAmount = (transactionPaidAmountList.map((transaction)=>transaction.amount)).reduce((prev,curr)=>(prev+curr),0)
+        res.status(200).json({user, groupList, transactionReceivedList, transactionPaidList, netReceivedAmount,netPaidAmount});
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({msg: "Unknown Server Error"})
+    }
+}
+
+module.exports = {registerUser, loginUser, updateUser, logoutUser, getUserSummary}

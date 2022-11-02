@@ -5,7 +5,7 @@ const {registerGroup, updateGroup, getGroupsSummary, getGroupDetails} = require(
 const {protect} = require("../middleware/protect")
 
 groupRouter.post('/register', protect, registerGroup)
-groupRouter.put('/', protect, updateGroup)
+groupRouter.put('/edit', protect, updateGroup)
 groupRouter.get('/summary', protect, getGroupsSummary)
 groupRouter.get('/details',protect, getGroupDetails)
 
