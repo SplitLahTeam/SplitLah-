@@ -13,6 +13,7 @@ const loginUser = async (req, res)=>{
 // req should contain - email and password
     const email = req.body.email
     const password = req.body.password
+    console.log(email, password)
 
     if (!email) {
         res.status(400).json({msg: "Login Email-ID cannot be blank"})
@@ -29,7 +30,10 @@ const loginUser = async (req, res)=>{
         const loginPass = bcrypt.compareSync(password, user.password)
         if (loginPass){
             req.session.userId = user._id
-            res.status(202).json({msg: "Successful Login"})
+            res.status(202).json({msg: "Successful Login", 
+        id: user._id,
+        name: user.name,
+        email: user.email})
         } else {
             req.sesssion.userId = null
             res.status(401).json({msg: "Inaccurate Password"})
@@ -76,4 +80,24 @@ const getUserSummary = async (req,res) => {
     }
 }
 
-module.exports = {registerUser, loginUser, updateUser, logoutUser, getUserSummary}
+
+const checkLogin = async (req, res)=>{
+        try{
+            const user = await User.findById(req.session.userId).exec()
+            if (!user) {
+                res.status(404).json({msg: "User not found"})
+                return
+            }    
+            res.status(200).json({msg: "Login", 
+            id: user._id,
+            name: user.name,
+            email: user.email})
+            
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({msg: "Unknown Server Error"})
+        }
+    }
+    
+
+module.exports = {registerUser, loginUser, updateUser, logoutUser, getUserSummary, checkLogin}

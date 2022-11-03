@@ -10,7 +10,6 @@ const NavBar = () => {
   
   const user = useSelector((state) => state.user.name)
   const dispatch = useDispatch()
-  dispatch(userActions.updateLoggedInUser())
   
 
   return (

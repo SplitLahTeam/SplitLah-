@@ -1,11 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {} from '@reduxjs/toolkit'
 
 const RegisterUser = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("sign up submitted");
+    const name = event.target.name.value;
+    const email = event.target.email.value
+    const password = event.target.password.value
+
+    console.log(name, email,password)
   };
 
   return (
