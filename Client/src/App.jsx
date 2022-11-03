@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import MainLayout from './layouts/MainLayout'
 import Login from './pages/Login'
 import RegisterUser from './pages/RegisterUser'
