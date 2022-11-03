@@ -2,6 +2,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const session = require("express-session")
+const cors = require("cors")
 
 require("dotenv").config()
 
@@ -16,18 +17,20 @@ const seedDbData = require("./controllers/seedDbController")
 mongoose.connect(MONGO_URI)
 
 app.use(express.json())
+app.use(cors())
 app.use(session({
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 1*24*3600*1000
+        maxAge: 1*24*3600*1000,
+        secure: false
     }
 }))
 
-app.use('/users',userRouter)
-app.use('/groups', groupRouter)
-app.use('/transactions', transactionRouter)
+app.use('/api/users',userRouter)
+app.use('/api/groups', groupRouter)
+app.use('/api/transactions', transactionRouter)
 
 
 app.get('/',(req,res)=>{
