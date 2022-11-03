@@ -1,8 +1,16 @@
+import Card from 'react-bootstrap/Card';
 
-const CardMoneyBalance = () => {
+const CardMoneyBalance = (props) => {
   return (
-    <div>CardMoneyBalance</div>
+    <div>
+      <Card variant="light" style={{ width: '10rem' }}>
+        <Card.Header>{props.moneyBalanceTitle}</Card.Header>
+        <Card.Body>
+          <Card.Text>${props.moneyBalanceAmount}</Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   )
 }
 
-export default CardMoneyBalance
+export default CardMoneyBalance;
