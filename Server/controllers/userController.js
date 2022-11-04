@@ -51,13 +51,17 @@ const updateUser = (req, res) => {
 
 
 const logoutUser = (req, res) => {
-    if (!req.session.userId){
-        res.status(400).json({msg: "No user to log-out"})
-        return
+    try{
+        if (!req.session.userId){
+            res.status(400).json({msg: "No user to log-out"})
+            return
+        }
+        req.session.userId = null
+        res.status(202).json({msg: "User successfully logged out!"})
+    }catch(error){
+        console.log(error)
+        res.status(500).json({msg: "Unknown erver error"})
     }
-    console.log(req.session.userId)
-    req.session.userId = null
-    res.status(202).json({msg: "User successfully logged out!"})
 }
 
 

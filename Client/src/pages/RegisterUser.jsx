@@ -1,9 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {} from '@reduxjs/toolkit'
+import {useNavigate} from 'react-router-dom'
 
 const RegisterUser = () => {
 
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault();
     const name = event.target.name.value;
@@ -35,7 +37,7 @@ const RegisterUser = () => {
       </Button>
       <br />
       <Form.Text className="text-muted">
-        Already have an account? Login <a href="/">here</a>
+        Already have an account? Login <a onClick={()=>navigate('/')}>here</a>
       </Form.Text>
     </Form>
   );

@@ -1,5 +1,6 @@
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import {useNavigate} from 'react-router-dom'
 import profile from "../images/profile.png";
 import CardMoneyBalance from "../components/CardMoneyBalance";
 import CardRecentExpenses from "../components/CardRecentExpenses";
@@ -7,6 +8,7 @@ import CardUserGroupSummary from "../components/CardUserGroupSummary";
 
 const UserHome = () => {
 
+  const navigate = useNavigate()
   const userName = "Anam";
 
   return (
@@ -15,7 +17,7 @@ const UserHome = () => {
         <Image src={profile} style={{ width: '100px', borderRadius: '50%' }}/>
         <h1>Hi {userName}!</h1>
         <p className="text-muted">Welcome to your dahsboard</p>
-        <Button href="/users/edit" variant="primary">Edit Profile</Button>
+        <Button onClick={() => navigate("/users/edit")} variant="primary">Edit Profile</Button>
       </div>
       <div className="money-balance">
         <CardMoneyBalance moneyBalanceTitle="You owe" moneyBalanceAmount="20.29"/>

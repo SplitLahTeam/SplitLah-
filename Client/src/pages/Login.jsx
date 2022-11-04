@@ -10,10 +10,10 @@ const Login = () => {
   const [loginFail, setLoginFail] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const userIdState = useSelector((state)=>state.user.id)
+  const userId = useSelector((state)=>state.user.id)
 
   useEffect(()=>{
-    if (userIdState === ""){
+    if (userId === ""){
       fetch('/api/users/checklogin').then((res)=>{
         if (res.status === 200){return res.json()}
         throw new Error})
@@ -24,6 +24,8 @@ const Login = () => {
         .catch((error)=>{
           console.log(error)
         })
+    } else {
+      navigate("/detailedpages/user/home")
     }
   },[])
 
@@ -74,7 +76,7 @@ const Login = () => {
       </Button>
       <br />
       <Form.Text className="text-muted">
-        Don't have an account? Sign up <a href="/users/register">here</a>
+        Don't have an account? Sign up <a onClick={()=>navigate('/users/register')}>here</a>
       </Form.Text>
     </Form>
   );

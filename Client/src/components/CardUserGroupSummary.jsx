@@ -1,14 +1,17 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 const CardUserGroupSummary = () => {
-
+  const navigate = useNavigate()
   const totalGroups = 3;
   const userGroups = [
-    { name: "Colleagues" },
-    { name: "Family" },
-    { name: "SEIF-10" }
+    {id:1, name: "Colleagues" },
+    {id:2,  name: "Family" },
+    {id:3,  name: "SEIF-10" }
   ]
+  
+  const handleAddGroupClick = () => {navigate('/group/register')}
 
   return (
     <div>
@@ -18,9 +21,9 @@ const CardUserGroupSummary = () => {
           <Card.Text>
             <ul>
               {userGroups.map((item) => (
-                <li>{item.name}</li>
+                <li key={item.id}>{item.name}</li>
               ))}
-              <a href="/group/register"><li>Create a group</li></a>
+              <li onClick={handleAddGroupClick}>Create a group</li>
             </ul>
           </Card.Text>
         </Card.Body>
