@@ -7,6 +7,7 @@ const registerGroup = async (req, res) => {
 // req should contain - All schema entries of "Group" collection
 const name = req.body.name
 const userList = req.body.userList
+const description = req.body.description
 if ((!name)||(!userList)) {
     res.status(400).json({msg: "Inadequate Details to register a group"})
     return
@@ -24,7 +25,7 @@ userList.forEach(async (userId)=>{
 if (invalidUserId) {return}
 
 try {
-    const newGroup = await Group.create({name, userList})
+    const newGroup = await Group.create({name, userList, description})
     res.status(201).json({msg:"New group registed",
     name: newGroup.name})
 } catch (error) {

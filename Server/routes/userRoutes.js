@@ -9,6 +9,6 @@ userRouter.put('/edit', protect, updateUser)
 userRouter.post('/logout', logoutUser)
 userRouter.get('/summary', protect, getUserSummary)
 userRouter.get('/checklogin', protect, checkLogin)
-userRouter.get('/search',searchUser)
+userRouter.post('/search',protect, searchUser)
 
 module.exports = userRouter
