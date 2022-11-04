@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt")
 
 const registerUser = (req,res)=>{
 // req should contain - All schema entries of "User" collection
+    try{
+        
+    }catch (error){
+        console.log(error)
+        res.status(500).json({msg:"Unknown server error"})
+    }
 }
 
 
@@ -116,6 +122,26 @@ const checkLogin = async (req, res)=>{
             res.status(500).json({msg: "Unknown Server Error"})
         }
     }
-    
 
-module.exports = {registerUser, loginUser, updateUser, logoutUser, getUserSummary, checkLogin}
+const searchUser = async (req,res) => {
+    try{
+        console.log(req.body.searchText)
+        // const userListRaw = await User.find({$text: {
+        //     $search: req.body.searchText,
+        //     $caseSensitive: false
+        // }})
+        const searchText = req.body.searchText
+        const userListRaw = await User.find({
+            $or: [{email:{$regex: searchText}},{name:{$regex: searchText}}]
+        })
+        const userList = userListRaw.map((user)=>{
+            return {id: user._id, name:user.name, email:user.email}
+        })
+        res.status(200).json(userList)
+    } catch (error){
+        console.log(error)
+        res.status(500).json({msg:"Unknown Server Error"})
+    }
+}
+
+module.exports = {registerUser, loginUser, updateUser, logoutUser, getUserSummary, checkLogin, searchUser}

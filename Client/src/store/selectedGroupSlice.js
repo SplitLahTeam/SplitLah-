@@ -2,7 +2,8 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     groupId: "",
-    userList: [],
+    userIdList: [],
+    userNameList:[],
     userBalanceList: []
 }
 
