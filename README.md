@@ -32,4 +32,9 @@ Some of the strech target features include following:
 
 ## 🪜 Key Challenges & Learning
 
+Working as a team on same program was an unique experience.
+We systematically divided the project into sub-section and divided amongst us.
+[Link to sub-sections and planning](https://docs.google.com/spreadsheets/d/1VVXgjrptBwsrz9G4e1zM8mdpqAFBvm4WZ3t_itfZOc4/edit?usp=share_link)
+[Link to Common Rules agreed](https://docs.google.com/document/d/1p-guP6gnfDuwsT9w-_g8t1SW-muOY0JWi8FJQ3KuEks/edit?usp=share_link)
+
 ## 🖥️ Technologies & Libraries Used
