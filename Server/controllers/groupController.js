@@ -38,6 +38,7 @@ const updateGroup = async (req, res) => {
 // req should contain - All schema entries of "Group" collection
     const id = req.body.id;
     const name = req.body.name
+    const description = req.body.description
     const userList = req.body.userList
 
     try {
@@ -69,6 +70,7 @@ const updateGroup = async (req, res) => {
         if (invalidUserId) {return}
         
         group.name = name
+        group.description = description
         group.userList = userList
         await group.save()
         res.status(202).json({msg: "Group Updated", name:group.name})

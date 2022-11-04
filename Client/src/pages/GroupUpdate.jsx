@@ -56,12 +56,12 @@ const GroupUpdate = () => {
     const name = event.target.name.value
     const description = event.target.description.value
     const userList = selectedUserList.map((user)=>user.id)
-    console.log(userList)
+    console.log("Handle Submit",selectedGroup.groupId,name,description,userList)
     if (!name || !description || (userList === [])){
       setNotification("Inputs cannot be blank")
       return
     }
-    fetch('/api/groups/update',{
+    fetch('/api/groups/edit',{
       method: "PUT",
       headers: {
         'Content-Type':'application/json'
