@@ -2,9 +2,10 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
     groupId: "",
-    userIdList: [],
-    userNameList:[],
-    userBalanceList: []
+    name:"",
+    description:"",
+    userList:[{id:"",name:"",email:"" ,amountToReceive:0}],
+    
 }
 
 const selectedGroupSlice = createSlice({
@@ -12,7 +13,10 @@ const selectedGroupSlice = createSlice({
     initialState,
     reducers: {
         updateSelectedGroup: (state, action) => {
-
+            state.groupId = action.payload.groupId
+            state.name = action.payload.name
+            state.description = action.payload.description
+            state.userList = action.payload.userList
         }
     }
 })

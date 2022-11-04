@@ -7,6 +7,6 @@ const {protect} = require("../middleware/protect")
 groupRouter.post('/register', protect, registerGroup)
 groupRouter.put('/edit', protect, updateGroup)
 groupRouter.get('/summary', protect, getGroupsSummary)
-groupRouter.get('/details',protect, getGroupDetails)
+groupRouter.post('/details',protect, getGroupDetails)
 
 module.exports = groupRouter

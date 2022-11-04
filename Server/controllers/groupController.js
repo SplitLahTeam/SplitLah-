@@ -71,8 +71,9 @@ const updateGroup = async (req, res) => {
         group.name = name
         group.userList = userList
         await group.save()
-        res.status(202).json({msg: "Group Updated"})
+        res.status(202).json({msg: "Group Updated", name:group.name})
     } catch (error) {
+        console.log(error)
         res.status(500).json({msg: "Server Error"})
     }
 }
@@ -151,23 +152,30 @@ const getGroupDetails = async (req,res) => {
 // req should contain - UserID and GroupID
     try{
         const userId = req.body.userId
+        // const loggedInUser = await User.findById(userId)
         const groupId = req.body.groupId
         if (!groupId) {
             res.status(400).json({msg: "No group ID found"})
         }
     
         const transactions = await getTransactions(userId, groupId)
-        const users = [... new Set(Object.keys(transactions.receivedTransactions).concat(Object.keys(transactions.paidTransactions)))]
-        const groupDetails = []
+        // const users = [... new Set(Object.keys(transactions.receivedTransactions).concat(Object.keys(transactions.paidTransactions)))]
+        const users = (await Group.findById(groupId)).userList
+        const {name, description} = (await Group.findById(groupId, ["name", "description"]))
+        const groupDetails = {name,
+            description,
+            userDetails: []}
     
         for (const user of users){
             const userDetails = {}
             userDetails.id = user
-            userDetails.name = (await User.findById(user)).name
+            const {name, email} = await User.findById(user, ["name", "email"])
+            userDetails.name = name
+            userDetails.email = email
             const amountReceived = transactions.receivedTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
             const amoutPaid = transactions.paidTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
             userDetails.amountToRecieve = amoutPaid-amountReceived
-            groupDetails.push(userDetails)
+            groupDetails.userDetails.push(userDetails)
         }
         res.status(200).json(groupDetails)
 
