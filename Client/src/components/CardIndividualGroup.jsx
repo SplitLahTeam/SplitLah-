@@ -6,7 +6,7 @@ const CardIndividualGroup = (props) => {
   return (
     <div>
       <Card className="p-3 m-3 group-card" style={{ width: "17rem" }}>
-        <div className="group-thumbnail">{Array.from(props.groupName)[0]}</div>
+        <div className="circle-thumbnail">{Array.from(props.groupName)[0]}</div>
         <Card.Body>
           <Card.Title style={{ fontSize: "28px", textAlign: "center" }}>{props.groupName}</Card.Title>
           <hr className="divider"></hr>
