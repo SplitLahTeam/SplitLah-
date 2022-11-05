@@ -40,10 +40,17 @@ const UserHome = () => {
         <p className="text-muted">Welcome to your dahsboard</p>
         <Button onClick={() => navigate("/users/edit")} variant="primary">Edit Profile</Button>
       </div>
+      <hr className="divider"></hr>
       <div className="money-balance">
-        <CardMoneyBalance moneyBalanceTitle="You owe" moneyBalanceAmount={netReceivedAmount}/>
-        <CardMoneyBalance moneyBalanceTitle="You are owed" moneyBalanceAmount={netPaidAmount}/>
-        <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />
+        <div className="card-money-balance">
+          <CardMoneyBalance moneyBalanceTitle="You owe" moneyBalanceAmount={netReceivedAmount}/>
+        </div>
+        <div className="card-money-balance">
+          <CardMoneyBalance moneyBalanceTitle="You are owed" moneyBalanceAmount={netPaidAmount}/>
+        </div>
+        <div className="card-money-balance">
+          <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />
+        </div>
       </div>
       <div className="recent-expenses">
         <CardRecentExpenses 
