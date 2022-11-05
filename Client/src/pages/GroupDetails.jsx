@@ -1,8 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/esm/Image";
-import profile from "../images/profile.png";
 import CardMoneyBalance from "../components/CardMoneyBalance";
 import CardIndividualMember from "../components/CardIndividualMember";
 
@@ -17,7 +15,7 @@ const GroupDetails = () => {
   return (
     <div>
       <div className="groups-head">
-        <div className="group-thumbnail">{Array.from(groupName)[0]}</div>
+        <div className="circle-thumbnail">{Array.from(groupName)[0]}</div>
         <h1>{groupName}</h1>
         <p className="text-muted">{groupDescription}</p>
         <Button onClick={() => navigate("/group/edit")}>Edit Group</Button>
@@ -46,10 +44,10 @@ const GroupDetails = () => {
           </div>
           <div className="button-stacked">
             <div className="button-padding">
-              <Button>View Transactions</Button>
+              <Button onClick={() => navigate("/detailedpages/group/transactions")}>View Transactions</Button>
             </div>
             <div className="button-padding">
-              <Button>Add Transactions</Button>
+              <Button onClick={() => navigate("/transaction/register")}>Add Transactions</Button>
             </div>
           </div>
         </div>
