@@ -80,7 +80,7 @@ const UserGroupsSummary = () => {
             key={group.id}
             groupName={group.name}
             amountToReceive = {group.amountToReceive}
-            groupClick={handleGroupClick(group._id)}
+            groupClick={handleGroupClick(group.id)}
           />
         ))}
       </div>

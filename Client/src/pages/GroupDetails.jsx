@@ -9,9 +9,8 @@ const GroupDetails = () => {
   const groupName = useSelector((state) => state.selectedGroup.name);
   const groupDescription = useSelector((state) => state.selectedGroup.description);
   const groupMembers = useSelector((state) => state.selectedGroup.userList);
-
   const totalMembers = useSelector((state) => state.selectedGroup.userList?.length);
-
+  console.log("group Members", groupMembers)
   return (
     <div>
       <div className="groups-head">
@@ -57,7 +56,8 @@ const GroupDetails = () => {
       <div className="group-cluster">
         {groupMembers.map((member) => (
           <CardIndividualMember
-            groupMemberName="Member's Name"
+            groupMemberName={member.name}
+            amountToRecieve = {member.amountToRecieve}
           />
         ))}
       </div>
