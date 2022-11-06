@@ -1,4 +1,5 @@
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/esm/Image";
 import profile from "../images/profile.png";
 import "../App.css";
@@ -19,6 +20,9 @@ const CardIndividualMember = (props) => {
             {(props.amountToRecieve > 0) && <p>You are to receive ${props.amountToRecieve}</p>}
             {(props.amountToRecieve === 0) && <p>You are settled-up!</p>} 
           </Card.Text>
+          {(props.amountToRecieve === 0) || <Button className="center-button" onClick={props.groupClick} variant="primary">
+              Settle Up!
+            </Button>}
         </Card.Body>
       </Card>
     </div>
