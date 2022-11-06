@@ -10,7 +10,7 @@ const CardIndividualGroup = (props) => {
         <Card.Body>
           <Card.Title style={{ fontSize: "28px", textAlign: "center" }}>{props.groupName}</Card.Title>
           <hr className="divider"></hr>
-          <Card.Text style={{ textAlign: "center" }}>Insert Amount</Card.Text>
+          <Card.Text style={{ textAlign: "center" }}>{props.amountToReceive}</Card.Text>
           <div className="button-spacing">
             <Button className="center-button" onClick={props.groupClick} variant="primary">
               View Group

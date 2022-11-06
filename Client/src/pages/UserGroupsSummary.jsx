@@ -1,15 +1,33 @@
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 import profile from "../images/profile.png";
+import {useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedGroupActions } from "../store/selectedGroupSlice";
+import {groupSummaryActions} from '../store/groupSummarySlice'
 import CardIndividualGroup from "../components/CardIndividualGroup";
 
 const UserGroupsSummary = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userGroups = useSelector((state) => state.userSummary.groupList);
+  const groupsSummaryList = useSelector((state) => state.groupSummary)
+
+  useEffect(()=>{
+    fetch(('/api/groups/summary'))
+    .then((res)=>{
+      if (res.status !==200){
+        throw new Error({msg:"Some comm error"})
+        return
+      }
+      return res.json()
+    })
+    .then((data)=>{
+      console.log(data)
+      dispatch(groupSummaryActions.updateGroupSummary(data))
+    })
+  },[])
 
   const handleGroupClick = (groupId) => {
     return () => {
@@ -57,10 +75,11 @@ const UserGroupsSummary = () => {
       </div>
       <hr className="divider"></hr>
       <div className="group-cluster">
-        {userGroups.map((group) => (
+        {groupsSummaryList.map((group) => (
           <CardIndividualGroup
             key={group.id}
             groupName={group.name}
+            amountToReceive = {group.amountToReceive}
             groupClick={handleGroupClick(group._id)}
           />
         ))}
