@@ -79,19 +79,21 @@ const getUserSummary = async (req,res) => {
         let transactionReceivedListRaw = await Transaction.find({receivedBy:userId},["_id","paidBy","amount","description","updatedAt"],{limit:10, sort:{updatedAt: -1}})
         const transactionReceivedList = []
         for (let transaction of transactionReceivedListRaw){
-            const paidByName = (await User.findById(String(transaction.paidBy), ["name"])).name
+            const nameRecord = await User.findById(String(transaction.paidBy), ["name"])
+            const paidByName = nameRecord.name
             transaction = transaction.toObject()
             transaction["paidByName"] = paidByName
             transactionReceivedList.push(transaction)
         }
         const transactionPaidListRaw = await Transaction.find({paidBy:userId},["_id","receivedBy","amount","description","updatedAt"],{limit:10, sort:{updatedAt: -1}})
         const transactionPaidList = []
-        transactionPaidListRaw.forEach(async (transaction) => {
-            transaction = transaction.toObject()
-            const receivedByName = (await User.findById(transaction.receivedBy)).name
+        for (const transactionRaw of transactionPaidListRaw) {
+            const transaction = transactionRaw.toObject()
+            const nameRecord = await User.findById(transaction.receivedBy)
+            const receivedByName = nameRecord.name
             transaction.receivedByName = receivedByName
             transactionPaidList.push(transaction)
-        })
+        }
         const transactionReceivedAmountList = await Transaction.find({receivedBy:userId},["amount"])
         const transactionPaidAmountList = await Transaction.find({paidBy:userId},["amount"])
         const netReceivedAmount = (transactionReceivedAmountList.map((transaction)=>transaction.amount)).reduce((prev,curr)=>(prev+curr),0)

@@ -1,7 +1,7 @@
 import Accordion from 'react-bootstrap/Accordion';
 
 const CardRecentExpenses = ({expenseTitle, transactionList}) => {
-  console.log(transactionList)
+  // console.log(transactionList)
   return (
     <div>
     <Accordion defaultActiveKey="0" style={{ width: '24rem' }} >

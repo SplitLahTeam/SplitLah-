@@ -1,17 +1,27 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 const initialState = {
-    userIdList: [],
-    userNameList: [],
-    amountList: []    
+    paidTransactionsPageNum:1,
+    receivedTransactionsPageNum:1,
+    paidTransactions:[{}],
+    receivedTransactions:[{}] 
 }
 
 const transactionListSlice = createSlice({
     name: "transactionList",
     initialState,
     reducers: {
-        updateTransactionList : (state, action) =>{
-
+        updatePaidTransactionList : (state, action) =>{
+            state.paidTransactions = action.payload
+        },
+        updateReceivedTransactionList : (state, action) => {
+            state.receivedTransactions = action.payload
+        },
+        updatePaidTransactionPageNum : (state, action) => {
+            state.paidTransactionsPageNum = action.payload
+        },
+        updateReceivedTransactionPageNum : (state, action) => {
+            state.receivedTransactionsPageNum = action.payload
         }
     }
 })
