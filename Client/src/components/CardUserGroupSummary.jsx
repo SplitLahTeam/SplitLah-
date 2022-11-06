@@ -16,6 +16,7 @@ const CardUserGroupSummary = () => {
 
   const handleGroupClick = (groupId) => {
     return () => {
+      console.log("GroupId", groupId)
       fetch('/api/groups/details',{
         method:"POST",
         headers:{
@@ -23,14 +24,14 @@ const CardUserGroupSummary = () => {
         },
         body:JSON.stringify({groupId})
       }).then((res)=>{
-        console.log(res)
+        // console.log(res)
         if (res.status !== 200){
           throw new Error({msg:"Some comm error"})
         }
         return res.json()
       }).then ((data)=>{
         // console.log(data)
-        dispatch(selectedGroupActions.updateSelectedGroup({groupId, name:data.name, description:data.description, userList:data.userDetails}))
+        dispatch(selectedGroupActions.updateSelectedGroup({groupId, name:data.name, description:data.description, userList:data.userDetails, netAmount:data.netAmount}))
         navigate('/detailedpages/group/details')
       }).catch((error)=>{
         console.log(error)
@@ -46,7 +47,7 @@ const CardUserGroupSummary = () => {
           <Card.Text>
             <ul>
               {userGroups.map((group) => (
-                <li onClick={handleGroupClick(group._id)} key={group.id}>{group.name}</li>
+                <li onClick={handleGroupClick(group._id)} key={group._id}>{group.name}</li>
               ))}
               <li onClick={handleAddGroupClick}>Create a group</li>
             </ul>

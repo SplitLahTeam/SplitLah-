@@ -166,6 +166,7 @@ const getGroupDetails = async (req,res) => {
         const {name, description} = (await Group.findById(groupId, ["name", "description"]))
         const groupDetails = {name,
             description,
+            netAmount: {paid:0, received:0},
             userDetails: []}
     
         for (const user of users){
@@ -175,7 +176,9 @@ const getGroupDetails = async (req,res) => {
             userDetails.name = name
             userDetails.email = email
             const amountReceived = transactions.receivedTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
+            groupDetails.netAmount.paid += amountReceived
             const amoutPaid = transactions.paidTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
+            groupDetails.netAmount.received += amoutPaid
             userDetails.amountToRecieve = amoutPaid-amountReceived
             groupDetails.userDetails.push(userDetails)
         }

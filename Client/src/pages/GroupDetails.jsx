@@ -8,6 +8,7 @@ const GroupDetails = () => {
   const navigate = useNavigate();
   const groupName = useSelector((state) => state.selectedGroup.name);
   const groupDescription = useSelector((state) => state.selectedGroup.description);
+  const netAmount = useSelector((state)=>state.selectedGroup.netAmount)
   const groupMembers = useSelector((state) => state.selectedGroup.userList);
   const totalMembers = useSelector((state) => state.selectedGroup.userList?.length);
   console.log("group Members", groupMembers)
@@ -26,19 +27,19 @@ const GroupDetails = () => {
           <div className="card-money-balance">
             <CardMoneyBalance
               moneyBalanceTitle="You owe"
-              moneyBalanceAmount="$0.00"
+              moneyBalanceAmount={netAmount.received}
             />
           </div>
           <div className="card-money-balance">
             <CardMoneyBalance
               moneyBalanceTitle="You are owed"
-              moneyBalanceAmount="$0.00"
+              moneyBalanceAmount={netAmount.paid}
             />
           </div>
           <div className="card-money-balance">
             <CardMoneyBalance
               moneyBalanceTitle="Total balance"
-              moneyBalanceAmount="$0.00"
+              moneyBalanceAmount={netAmount.netToReceive}
             />
           </div>
           <div className="button-stacked">

@@ -53,6 +53,7 @@ const UserGroupsSummary = () => {
               name: data.name,
               description: data.description,
               userList: data.userDetails,
+              netAmount: data.netAmount
             })
           );
           navigate("/detailedpages/group/details");
