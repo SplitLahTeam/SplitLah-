@@ -4,10 +4,30 @@ const Group = require("../models/group")
 const Transaction = require("../models/transaction")
 const bcrypt = require("bcrypt")
 
-const registerUser = (req,res)=>{
+const registerUser = async (req,res)=>{
 // req should contain - All schema entries of "User" collection
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = bcrypt.hashSync(req.body.password, 10);
+    console.log(name, email, password);
+
+    if ((!name)||(!email)||(!password)) {
+        res.status(400).json({msg: "Inadequate details to register user"})
+        return;
+    }
+
     try{
-        
+        const existingUser = await User.findOne({email}).exec()
+        // Check for existing users with the same email
+        if (email === existingUser.email) {
+            res.status(409).json({msg:"Email has already been used"})
+            return
+        } else {
+            const newUser = await User.create({name, email, password})
+            res.status(201).json({msg:"New user registered",
+            name: newUser.name})
+        }
+
     }catch (error){
         console.log(error)
         res.status(500).json({msg:"Unknown server error"})
