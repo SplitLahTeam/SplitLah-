@@ -1,6 +1,7 @@
 
 const Transaction = require('../models/transaction')
 const User = require('../models/user')
+const Group = require('../models/group')
 
 const getPaidTransactions = async (req,res) => {
 // req should contain - userID and groupID
@@ -47,8 +48,32 @@ const getReceivedTransactions = async (req,res) => {
     }
     }
     
-const registerTransaction = (req,res) => {
+const registerTransaction = async (req,res) => {
 // req should contain - All schema entries of "Transaction" collection
+    try {
+        const createdBy = req.session.userId
+        const paidBy = req.body.paidBy
+        const receivedBy = req.body.receivedBy
+        const amount = req.body.amount
+        const description = req.body.description
+        const groupId = req.body.groupId
+        const userListRaw = (await Group.findById(groupId)).toObject().userList
+        const userList = userListRaw.map((user)=>user.toString())
+        console.log(userList)
+        console.log(createdBy, paidBy, receivedBy)
+        if ((userList.find((user)=>(user===createdBy))) && (userList.find((user)=>(user===paidBy))) && (userList.find((user)=>(user===receivedBy)))) {
+            const newTransaction = (await Transaction.create({createdBy, paidBy, receivedBy, amount, description, groupId})).toObject()
+            res.status(201).json({msg:"Txn successfully created", ...newTransaction})
+            return
+        }      
+        res.status(400).json({msg: "One of users doesnt belong to this group"})
+
+    } catch(error){
+        console.log(error)
+        res.status(500).json({
+            msg: "Unknown server Error"
+        })
+    }
 }
 
 const updateTransaction = (req, res) => {
