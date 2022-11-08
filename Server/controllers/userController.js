@@ -5,21 +5,21 @@ const Transaction = require("../models/transaction")
 const bcrypt = require("bcrypt")
 
 const registerUser = async (req,res)=>{
-// req should contain - All schema entries of "User" collection
+    // req should contain - All schema entries of "User" collection
     const name = req.body.name;
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, 10);
     console.log(name, email, password);
-
+    
     if ((!name)||(!email)||(!password)) {
         res.status(400).json({msg: "Inadequate details to register user"})
         return;
     }
-
+    
     try{
         const existingUser = await User.findOne({email}).exec()
         // Check for existing users with the same email
-        if (email === existingUser.email) {
+        if (existingUser) {
             res.status(409).json({msg:"Email has already been used"})
             return
         } else {
@@ -27,7 +27,7 @@ const registerUser = async (req,res)=>{
             res.status(201).json({msg:"New user registered",
             name: newUser.name})
         }
-
+    
     }catch (error){
         console.log(error)
         res.status(500).json({msg:"Unknown server error"})
@@ -58,8 +58,7 @@ const loginUser = async (req, res)=>{
             req.session.userId = user._id
             res.status(202).json({msg: "Successful Login", 
         id: user._id,
-        name: user.name,
-        email: user.email})
+        name: user.name})
         } else {
             req.sesssion.userId = null
             res.status(401).json({msg: "Inaccurate Password"})
