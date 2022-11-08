@@ -1,61 +1,66 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import {useSelector, useDispatch} from 'react-redux'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const TransactionRegister = () => {
-  const [selectedUserList, setSelectedUserList] = useState([]);
-  const [userSearchResults, setUserSearchResults] = useState([
-    { id: 1, name: "A", email: "A" },
-    { id: 2, name: "B", email: "B" },
-  ]);
-  const searchTextBoxRef = useRef();
+  const [selectedReceivedByUser, setSelectedReceivedByUser] = useState({id:"",name:"",email:""});
+  const [selectedPaidByUser, setSelectedPaidByUser] = useState({id:"",name:"",email:""});
+  const [registerStatus, setRegisterStatus] = useState("")
+  const groupUserList = useSelector((state)=>(state.selectedGroup.userList))
+  const groupId = useSelector((state)=>(state.selectedGroup.groupId))
+  const userId = useSelector((state)=>state.user.id)
+  const amountTextBoxRef = useRef();
+  const descriptionTextBoxRef = useRef()
 
-  const handleUserSearch = async () => {
-    const searchText = searchTextBoxRef.current.value;
-    console.log(searchText);
-    fetch("/api/users/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ searchText: searchText }),
-    })
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error({ msg: "Find Call failed" });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setUserSearchResults(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  useEffect(()=>{
+
+  },[])
+
+  const handleAddPaidByUser = (user) => {
+    return () => {
+      setSelectedPaidByUser(user)
+    };
   };
 
-  const handleAddUser = (user) => {
+  const handleAddReceivedByUser = (user) => {
     return () => {
-      const userIdList = selectedUserList.map((user) => user.id);
-      if (userIdList.find((id) => id === user.id)) {
-        return;
-      }
-      setSelectedUserList([
-        ...selectedUserList,
-        { id: user.id, name: user.name, email: user.email },
-      ]);
+      setSelectedReceivedByUser(user)
     };
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(userId, selectedPaidByUser.id, selectedReceivedByUser.id,groupId,amountTextBoxRef.current.value, descriptionTextBoxRef.current.value)
+    fetch('/api/transactions/register',{
+      method:"POST",
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({
+        createdBy: userId,
+        paidBy:selectedPaidByUser.id,
+        receivedBy: selectedReceivedByUser.id,
+        amount: amountTextBoxRef.current.value,
+        description: descriptionTextBoxRef.current.value,
+        groupId
+      })
+    }).then ((res)=>{
+        if (!(res.status === 201)){
+          throw new Error({msg: "Server Error"})
+        }
+        return res.json()
+      }).then ((data)=>{
+        setRegisterStatus("Added Txn:"+selectedPaidByUser.name+" To "+selectedReceivedByUser.name+" ("+(amountTextBoxRef.current.value)+") ")
+      }).catch((error)=>{
+        console.log(error)
+        setRegisterStatus("Txn register failed")
+      })
+  
   };
 
   return (
@@ -70,58 +75,46 @@ const TransactionRegister = () => {
           <Col className="text-center d-flex justify-content-center">
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
-                <Form.Label className="d-block">Paid by:</Form.Label>
-                <Dropdown onClick={handleUserSearch} className="d-inline">
+                <Form.Label className="d-block">Paid by : {selectedPaidByUser.name} -
+                <Dropdown className="d-inline">
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {userSearchResults.map((user) => (
-                      <Dropdown.Item onClick={handleAddUser(user)}>
+                    {groupUserList.map((user) => (
+                      <Dropdown.Item key={user.id} onClick={handleAddPaidByUser(user)}>
                         {user.name} : {user.email}
                       </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
                 </Dropdown>
-                <Form.Control
-                  className="d-inline"
-                  style={{ width: "230px" }}
-                  placeholder="Find by name or email"
-                  ref={searchTextBoxRef}
-                />
+                </Form.Label>
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label className="d-block">Received by:</Form.Label>
-                <Dropdown onClick={handleUserSearch} className="d-inline">
+                <Form.Label className="d-block">Received by : {selectedReceivedByUser.name}  -
+                <Dropdown className="d-inline">
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {userSearchResults.map((user) => (
-                      <Dropdown.Item onClick={handleAddUser(user)}>
+                    {groupUserList.map((user) => (
+                      <Dropdown.Item key={user.id} onClick={handleAddReceivedByUser(user)}>
                         {user.name} : {user.email}
                       </Dropdown.Item>
                     ))}
                   </Dropdown.Menu>
-                </Dropdown>
-                <Form.Control
-                  className="d-inline"
-                  style={{ width: "230px" }}
-                  placeholder="Find by name or email"
-                  ref={searchTextBoxRef}
-                />
+                </Dropdown>       
+                </Form.Label>         
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label className="text-center">Amount:</Form.Label>
-                <Form.Control
-                  name="name"
+                <Form.Control ref={amountTextBoxRef}
+                  name="amount"
                   style={{ width: "300px" }}
                   placeholder="Enter amount"
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Description:</Form.Label>
-                <Form.Control
+                <Form.Control ref={descriptionTextBoxRef}
                   name="description"
                   as="textarea"
                   placeholder="Description"
@@ -129,7 +122,9 @@ const TransactionRegister = () => {
                 />
               </Form.Group>
               <Button type="submit">Add</Button>
+              <p>{registerStatus}</p>
             </Form>
+            
           </Col>
         </Row>
       </Container>
