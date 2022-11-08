@@ -24,16 +24,16 @@ const registerUser = async (req,res)=>{
             return
         } else {
             const newUser = await User.create({name, email, password})
+            req.session.userId = newUser._id
             res.status(201).json({msg:"New user registered",
+            id: newUser._id,
             name: newUser.name})
         }
-    
     }catch (error){
         console.log(error)
         res.status(500).json({msg:"Unknown server error"})
     }
 }
-
 
 const loginUser = async (req, res)=>{
 // req should contain - email and password
