@@ -1,3 +1,5 @@
+import { useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -7,9 +9,53 @@ import Image from "react-bootstrap/esm/Image";
 import profile from "../images/profile.png";
 
 const UpdateUser = () => {
+  const user = useSelector((state) => state.user);
+  const [notification, setNotification] = useState(null);
+  const initialName = user.name;
+  const initialEmail = user.email;
+  console.log(user);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    console.log(
+      "Handle submit",
+      user.id,
+      name,
+      email,
+      password
+    )
+    if (!name || !email || !password) {
+      setNotification("Inputs cannot be blank");
+      return;
+    }
+    fetch("/api/users/edit", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: user.id,
+        name,
+        email,
+        password,
+      }),
+    })
+    .then((res) => {
+      if (res.status !== 202) {
+        throw new Error({ msg: "Couldn't update user information" });
+      }
+      return res.json();
+    })
+    .then((data) => {
+      setNotification("User updated : " + data.name);
+    })
+    .catch((error) => {
+      console.log(error);
+      setNotification("Some error in updating user!");
+    });
   };
 
   return (
@@ -29,7 +75,9 @@ const UpdateUser = () => {
                   type="text"
                   name="name"
                   style={{ width: "300px" }}
-                  placeholder="Enter name"
+                  autocomplete="off"
+                  placeholder="Enter new name"
+                  defaultValue={initialName}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -38,7 +86,9 @@ const UpdateUser = () => {
                   type="email"
                   name="email"
                   style={{ width: "300px" }}
-                  placeholder="Enter email"
+                  autocomplete="off"
+                  placeholder="Enter new email"
+                  defaultValue={initialEmail}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -47,10 +97,13 @@ const UpdateUser = () => {
                   type="password"
                   name="password"
                   style={{ width: "300px" }}
+                  autocomplete="off"
                   placeholder="Enter new password"
                 />
               </Form.Group>
               <Button type="submit">Update</Button>
+              <i className="fa-regular fa-user"></i>
+              {notification && <p className="text-danger">{notification}</p>}
             </Form>
           </Col>
         </Row>

@@ -69,9 +69,41 @@ const loginUser = async (req, res)=>{
 }
 
 
-const updateUser = (req, res) => {
-// req should contain - All schema entries of "User" collection
+const updateUser = async (req, res) => {
+    // req should contain - All schema entries of "User" collection
+    const id = req.body.id
+    const name = req.body.name
+    const email = req.body.email
+    const password = bcrypt.hashSync(req.body.password, 10)
 
+    try {
+        if ((!id)||(!name)||(!email)||(!password)) {
+            res.status(400).json({
+                msg: "Inadequate details to update user"
+            })
+            return
+        }
+        const user = await User.findById(id)
+        if (!user) {
+            res.status(400).json({
+                msg: "No user found for given ID"
+            })
+            return
+        }
+        user.name = name
+        user.email = email
+        user.password = password
+        await user.save()
+        res.status(202).json({
+            msg: "User updated",
+            name: user.name
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            msg: "Server error"
+        })
+    }
 }
 
 
