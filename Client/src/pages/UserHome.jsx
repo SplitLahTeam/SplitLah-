@@ -43,10 +43,10 @@ const UserHome = () => {
       <hr className="divider"></hr>
       <div className="money-balance">
         <div className="card-money-balance">
-          <CardMoneyBalance moneyBalanceTitle="You owe" moneyBalanceAmount={netReceivedAmount}/>
+          <CardMoneyBalance moneyBalanceTitle="You owe" colorClass="text-danger" moneyBalanceAmount={netReceivedAmount}/>
         </div>
         <div className="card-money-balance">
-          <CardMoneyBalance moneyBalanceTitle="You are owed" moneyBalanceAmount={netPaidAmount}/>
+          <CardMoneyBalance moneyBalanceTitle="You are owed" colorClass="text-success" moneyBalanceAmount={netPaidAmount}/>
         </div>
         <div className="card-money-balance">
           <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />

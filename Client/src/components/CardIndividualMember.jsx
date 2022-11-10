@@ -16,8 +16,8 @@ const CardIndividualMember = (props) => {
           </Card.Title>
           <hr className="divider"></hr>
           <Card.Text style={{ textAlign: "center" }}>
-            {(props.amountToRecieve < 0) && <p color="success">You owe ${-1*props.amountToRecieve}</p>}
-            {(props.amountToRecieve > 0) && <p>You are to receive ${props.amountToRecieve}</p>}
+            {(props.amountToRecieve < 0) && <p className="text-danger">You owe ${-1*props.amountToRecieve}</p>}
+            {(props.amountToRecieve > 0) && <p className="text-success">You are to receive ${props.amountToRecieve}</p>}
             {(props.amountToRecieve === 0) && <p>You are settled-up!</p>} 
           </Card.Text>
           {(props.amountToRecieve === 0) || <Button className="center-button" onClick={props.handleSettleUp} variant="primary">

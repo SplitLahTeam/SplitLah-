@@ -6,7 +6,7 @@ const CardMoneyBalance = (props) => {
       <Card variant="light" style={{ width: '10rem' }}>
         <Card.Header>{props.moneyBalanceTitle}</Card.Header>
         <Card.Body>
-          <Card.Text>${props.moneyBalanceAmount}</Card.Text>
+          <Card.Text className={props.colorClass}>${props.moneyBalanceAmount}</Card.Text>
         </Card.Body>
       </Card>
     </div>

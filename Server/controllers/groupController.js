@@ -176,9 +176,9 @@ const getGroupDetails = async (req,res) => {
             userDetails.name = name
             userDetails.email = email
             const amountReceived = transactions.receivedTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
-            groupDetails.netAmount.paid += amountReceived
+            groupDetails.netAmount.received += amountReceived
             const amoutPaid = transactions.paidTransactions[user]?.reduce((prev,curr)=>(prev+curr),0) || 0
-            groupDetails.netAmount.received += amoutPaid
+            groupDetails.netAmount.paid += amoutPaid
             userDetails.amountToRecieve = amoutPaid-amountReceived
             groupDetails.userDetails.push(userDetails)
         }

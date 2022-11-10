@@ -48,12 +48,14 @@ const GroupDetails = () => {
             <CardMoneyBalance
               moneyBalanceTitle="You owe"
               moneyBalanceAmount={netAmount.received}
+              colorClass="text-danger"
             />
           </div>
           <div className="card-money-balance">
             <CardMoneyBalance
               moneyBalanceTitle="You are owed"
               moneyBalanceAmount={netAmount.paid}
+              colorClass="text-success"
             />
           </div>
           <div className="card-money-balance">
