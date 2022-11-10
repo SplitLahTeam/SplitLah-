@@ -1,4 +1,3 @@
-
 const User = require("../models/user")
 const Group = require("../models/group")
 const Transaction = require("../models/transaction")
@@ -88,6 +87,12 @@ const updateUser = async (req, res) => {
             res.status(400).json({
                 msg: "No user found for given ID"
             })
+            return
+        }
+        const existingUser = await User.findOne({ email: email }).exec()
+        // Check for existing users with the same email
+        if (existingUser) {
+            res.status(409).json({msg:"Email has already been used"})
             return
         }
         user.name = name

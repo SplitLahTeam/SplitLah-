@@ -22,6 +22,7 @@ const UpdateUser = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
+
     if (!name || !email || !password) {
       setNotification("Inputs cannot be blank");
       return;
@@ -71,7 +72,7 @@ const UpdateUser = () => {
                   type="text"
                   name="name"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new name"
                   defaultValue={initialName}
                 />
@@ -82,7 +83,7 @@ const UpdateUser = () => {
                   type="email"
                   name="email"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new email"
                   defaultValue={initialEmail}
                 />
@@ -93,7 +94,7 @@ const UpdateUser = () => {
                   type="password"
                   name="password"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new password"
                 />
               </Form.Group>
