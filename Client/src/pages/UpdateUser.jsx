@@ -22,7 +22,7 @@ const UpdateUser = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    
+
     if (!name || !email || !password) {
       setNotification("Inputs cannot be blank");
       return;
