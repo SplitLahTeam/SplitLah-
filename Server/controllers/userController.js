@@ -91,7 +91,7 @@ const updateUser = async (req, res) => {
         }
         const existingUser = await User.findOne({ email: email }).exec()
         // Check for existing users with the same email
-        if (existingUser) {
+        if ((existingUser) && user.email != email) {
             res.status(409).json({msg:"Email has already been used"})
             return
         }
