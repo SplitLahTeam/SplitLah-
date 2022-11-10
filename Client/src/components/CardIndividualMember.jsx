@@ -20,7 +20,7 @@ const CardIndividualMember = (props) => {
             {(props.amountToRecieve > 0) && <p>You are to receive ${props.amountToRecieve}</p>}
             {(props.amountToRecieve === 0) && <p>You are settled-up!</p>} 
           </Card.Text>
-          {(props.amountToRecieve === 0) || <Button className="center-button" onClick={props.groupClick} variant="primary">
+          {(props.amountToRecieve === 0) || <Button className="center-button" onClick={props.handleSettleUp} variant="primary">
               Settle Up!
             </Button>}
         </Card.Body>

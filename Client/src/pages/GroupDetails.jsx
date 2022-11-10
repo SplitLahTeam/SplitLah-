@@ -1,17 +1,37 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {selectedTransactionActions} from '../store/selectedTransactionSlice'
 import Button from "react-bootstrap/Button";
 import CardMoneyBalance from "../components/CardMoneyBalance";
 import CardIndividualMember from "../components/CardIndividualMember";
 
 const GroupDetails = () => {
   const navigate = useNavigate();
+  const loggedInUser = useSelector((state) => state.user)
   const groupName = useSelector((state) => state.selectedGroup.name);
   const groupDescription = useSelector((state) => state.selectedGroup.description);
   const netAmount = useSelector((state)=>state.selectedGroup.netAmount)
   const groupMembers = useSelector((state) => state.selectedGroup.userList);
   const totalMembers = useSelector((state) => state.selectedGroup.userList?.length);
-  console.log("group Members", groupMembers)
+  const dispatch = useDispatch()
+
+  const handleSettleUp = (member) => () => {
+    let amount = member.amountToRecieve
+    const description = "Settling Up Transaction"
+    let paidBy, receivedBy
+    if (amount < 0){
+      receivedBy = {id: member.id, name:member.name, email:member.email}
+      paidBy = loggedInUser
+      amount = (-1)*amount
+    } else {
+      receivedBy = loggedInUser
+      paidBy = {id: member.id, name:member.name, email:member.email}
+    }
+    dispatch(selectedTransactionActions.updatePartialTransaction({paidBy, receivedBy,amount,description}))
+    dispatch(selectedTransactionActions.setNavigationFlagTrue())
+    navigate('/transaction/register')
+  }
+
   return (
     <div>
       <div className="groups-head">
@@ -59,6 +79,7 @@ const GroupDetails = () => {
           <CardIndividualMember
             groupMemberName={member.name}
             amountToRecieve = {member.amountToRecieve}
+            handleSettleUp = {handleSettleUp(member)}
           />
         ))}
       </div>
