@@ -39,6 +39,7 @@ const NavBar = () => {
           <Nav className="me-auto">
             {userLoggedIn && <Nav.Link onClick={handleDashboardTxtClick}>My Dashboard</Nav.Link>}
             {userLoggedIn && <Nav.Link onClick={handleGroupsTxtClick}>My Groups</Nav.Link>}
+            {userLoggedIn && <p className='text-light'>Hi! {user.name}</p>}
             {userLoggedIn && <Button  onClick={handleLogOutButtonClick} variant="danger">Log out</Button>}
           </Nav>
         </Container>
