@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux'
+import {selectedTransactionActions} from '../store/selectedTransactionSlice'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -8,6 +9,8 @@ import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 
 const TransactionRegister = () => {
+  const selectedTransaction = useSelector((state)=>state.selectedTransaction)
+  const dispatch = useDispatch()
   const [selectedReceivedByUser, setSelectedReceivedByUser] = useState({id:"",name:"",email:""});
   const [selectedPaidByUser, setSelectedPaidByUser] = useState({id:"",name:"",email:""});
   const [registerStatus, setRegisterStatus] = useState("")
@@ -18,7 +21,13 @@ const TransactionRegister = () => {
   const descriptionTextBoxRef = useRef()
 
   useEffect(()=>{
-
+    if (selectedTransaction.navigatedFromSettleUp){
+      setSelectedPaidByUser(selectedTransaction.paidBy)
+      setSelectedReceivedByUser(selectedTransaction.receivedBy)
+      amountTextBoxRef.current.value = selectedTransaction.amount
+      descriptionTextBoxRef.current.value = selectedTransaction.description
+      dispatch(selectedTransactionActions.setNavigationFlagFalse())
+    }
   },[])
 
   const handleAddPaidByUser = (user) => {
