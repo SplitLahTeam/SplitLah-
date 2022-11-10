@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import {userActions} from '../store/userSlice';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -11,6 +12,7 @@ import profile from "../images/profile.png";
 const UpdateUser = () => {
   const user = useSelector((state) => state.user);
   const [notification, setNotification] = useState(null);
+  const dispatch = useDispatch()
   const initialName = user.name;
   const initialEmail = user.email;
   console.log(user);
@@ -20,13 +22,7 @@ const UpdateUser = () => {
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    console.log(
-      "Handle submit",
-      user.id,
-      name,
-      email,
-      password
-    )
+    
     if (!name || !email || !password) {
       setNotification("Inputs cannot be blank");
       return;
@@ -51,6 +47,7 @@ const UpdateUser = () => {
     })
     .then((data) => {
       setNotification("User updated : " + data.name);
+      dispatch(userActions.updateLoggedInUser({id: user.id, name, email}))
     })
     .catch((error) => {
       console.log(error);
@@ -75,7 +72,7 @@ const UpdateUser = () => {
                   type="text"
                   name="name"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new name"
                   defaultValue={initialName}
                 />
@@ -86,7 +83,7 @@ const UpdateUser = () => {
                   type="email"
                   name="email"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new email"
                   defaultValue={initialEmail}
                 />
@@ -97,7 +94,7 @@ const UpdateUser = () => {
                   type="password"
                   name="password"
                   style={{ width: "300px" }}
-                  autocomplete="off"
+                  autoComplete="off"
                   placeholder="Enter new password"
                 />
               </Form.Group>
