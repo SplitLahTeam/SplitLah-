@@ -20,6 +20,11 @@ const CardIndividualGroup = (props) => {
               View Group
             </Button>
           </div>
+          <div className="button-spacing">
+            <Button className="center-button" onClick={props.groupDelete} variant="danger">
+              Delete Group
+            </Button>
+          </div>
         </Card.Body>
       </Card>
     </div>
