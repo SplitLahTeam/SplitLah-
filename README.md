@@ -30,6 +30,10 @@ Some of the strech target features include following:
 
 ## 🏗️ Program Architecture
 
+[Back-End Architecture](/apps/client/src/images/BackEnd%20Architecture.jpg)
+
+[Front-End Architecture](/apps/client/src/images/FrontEnd%20Architecture.jpg)
+
 ## 🪜 Key Challenges & Learning
 
 Working as a team on same program was an unique experience.
