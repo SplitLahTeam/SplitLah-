@@ -27,7 +27,7 @@ app.use(session({
         secure: false
     }
 }))
-app.use(express.static("../Client/dist"));
+app.use(express.static("../client/dist"));
 
 app.use('/api/users',userRouter)
 app.use('/api/groups', groupRouter)
@@ -42,7 +42,7 @@ app.post('/seedDbData', seedDbData)
 
 // CONNECT TO FRONT END ROUTING
 app.get("/*", (req, res) => {
-    res.sendFile(path.resolve("../Client/dist/index.html"));
+    res.sendFile(path.resolve("../client/dist/index.html"));
   });
 
 mongoose.connection.once("open", ()=>{

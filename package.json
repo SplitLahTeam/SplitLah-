@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "cd apps/Server && npm run start"
+    "start": "cd apps/server && npm run start"
   },
   "dependencies": {
     "turbo": "^1.6.3"
