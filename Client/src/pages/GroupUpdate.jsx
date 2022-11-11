@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import {useNavigate} from 'react-router-dom'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -8,8 +9,10 @@ import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const GroupUpdate = () => {
+  const navigate = useNavigate()
   const selectedGroup = useSelector((state) => state.selectedGroup);
   const initilSelectedUserList = selectedGroup.userList.map((user) => {
     return { id: user.id, name: user.name, email: user.email };
@@ -46,6 +49,7 @@ const GroupUpdate = () => {
       })
       .catch((error) => {
         console.log(error);
+        navigate('/')
       });
   };
 
@@ -104,13 +108,14 @@ const GroupUpdate = () => {
       .catch((error) => {
         console.log(error);
         setNotification("Some Error in creating group!");
+        navigate('/')
       });
   };
 
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        <div className="circle-thumbnail my-1 mx-2">•••</div>
+        <FontAwesomeIcon icon={faPeopleGroup} style={{height:"50px", "border-radius":"50%"}} className="m-2 bg-warning"/>
         <h1 className="my-auto">Edit Group</h1>
       </div>
       <hr className="divider"></hr>
@@ -156,10 +161,13 @@ const GroupUpdate = () => {
                   ref={searchTextBoxRef}
                 />
               </Form.Group>
+              <Form.Group>
+              <Form.Label className="d-block">Selected Members:</Form.Label>
+              </Form.Group>
               <Form.Group className="mb-3">
                 <ul>
                   {selectedUserList.map((user) => (
-                    <li>
+                    <li style={{"list-style":"none"}} className="text-start">
                       {user.name} : {user.email}
                     </li>
                   ))}

@@ -31,7 +31,10 @@ const UserHome = () => {
     .then((res)=>res.json())
     .then((data)=>{
       console.log(data)
-      dispatch(userSummaryActions.updateUserSummary(data))
+      dispatch(userSummaryActions.updateUserSummary(data))})
+    .catch((error)=>{
+      console.log(error)
+      navigate('/')
     })
   },[])
 

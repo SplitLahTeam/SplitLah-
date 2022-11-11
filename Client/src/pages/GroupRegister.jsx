@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import {useNavigate} from 'react-router-dom'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -10,6 +11,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const GroupRegister = () => {
+  const navigate = useNavigate()
   const [selectedUserList, setSelectedUserList] = useState([]);
   const [userSearchResults, setUserSearchResults] = useState([
     { id: 1, name: "A", email: "A" },
@@ -87,14 +89,13 @@ const GroupRegister = () => {
       .catch((error) => {
         console.log(error);
         setNotification("Some Error in creating group!");
+        navigate('/')
       });
   };
 
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        {/* <div className="circle-thumbnail">•••</div>
-        <FontAwesomeIcon icon={"fa-solid fa-people-group"} /> */}
         <FontAwesomeIcon icon={faPeopleGroup} style={{height:"50px", "border-radius":"50%"}} className="m-2 bg-warning"/>
         <h1>Create group</h1>
       </div>

@@ -1,5 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -9,7 +10,7 @@ import {transactionListActions} from '../store/transactionListSlice'
 import CardRecentExpenses from "../components/CardRecentExpenses";
 
 const GroupTransactions = () => {
-
+  const navigate = useNavigate()
   const groupName = useSelector((state) => state.selectedGroup.name);
   const groupId = useSelector((state)=>state.selectedGroup.groupId)
   const paidTransactionsPageNum = useSelector((state)=>state.transactionList.paidTransactionsPageNum)
@@ -42,6 +43,7 @@ const GroupTransactions = () => {
       dispatch(transactionListActions.updatePaidTransactionList(data))
     }).catch((error)=>{
       console.log(error)
+      navigate('/')
     })},[paidTransactionsPageNum])
 
   useEffect(()=>{  
@@ -63,6 +65,7 @@ const GroupTransactions = () => {
       dispatch(transactionListActions.updateReceivedTransactionList(data))
     }).catch((error)=>{
       console.log(error)
+      navigate('/')
     })
   },[receivedTransactionsPageNum])
 

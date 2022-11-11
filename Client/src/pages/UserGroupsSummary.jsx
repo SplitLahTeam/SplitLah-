@@ -30,7 +30,10 @@ const UserGroupsSummary = () => {
     })
     .then((data)=>{
       console.log(data)
-      dispatch(groupSummaryActions.updateGroupSummary(data))
+      dispatch(groupSummaryActions.updateGroupSummary(data))})
+    .catch((error)=>{
+      console.log(error)
+      navigate('/')
     })
   },[])
 
@@ -65,6 +68,7 @@ const UserGroupsSummary = () => {
         })
         .catch((error) => {
           console.log(error);
+          navigate('/')
         });
     };
   };
