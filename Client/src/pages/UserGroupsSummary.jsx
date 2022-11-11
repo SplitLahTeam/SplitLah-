@@ -1,4 +1,5 @@
 import Image from "react-bootstrap/Image";
+import container from 'react-bootstrap/Container'
 import Button from "react-bootstrap/Button";
 import profile from "../images/profile.png";
 import {useEffect} from 'react'
@@ -65,6 +66,7 @@ const UserGroupsSummary = () => {
   };
 
   return (
+    <container fluid>
     <div>
       <div className="groups-head">
         <Image src={profile} style={{ width: "100px", borderRadius: "50%" }} />
@@ -75,7 +77,7 @@ const UserGroupsSummary = () => {
         </Button>
       </div>
       <hr className="divider"></hr>
-      <div className="group-cluster">
+      <div className="d-flex flex-wrap">
         {groupsSummaryList.map((group) => (
           <CardIndividualGroup
             key={group.id}
@@ -86,6 +88,7 @@ const UserGroupsSummary = () => {
         ))}
       </div>
     </div>
+    </container>
   );
 };
 
