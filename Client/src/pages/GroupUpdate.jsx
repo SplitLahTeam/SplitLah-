@@ -7,12 +7,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
+import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const GroupUpdate = () => {
   const navigate = useNavigate()
+  const searchTextBoxRef = useRef();
   const selectedGroup = useSelector((state) => state.selectedGroup);
   const initilSelectedUserList = selectedGroup.userList.map((user) => {
     return { id: user.id, name: user.name, email: user.email };
@@ -25,7 +27,10 @@ const GroupUpdate = () => {
     { id: 2, name: "B", email: "B" },
   ]);
   const [notification, setNotification] = useState(null);
-  const searchTextBoxRef = useRef();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
   const handleUserSearch = async () => {
     const searchText = searchTextBoxRef.current.value;
@@ -103,12 +108,13 @@ const GroupUpdate = () => {
         return res.json();
       })
       .then((data) => {
-        setNotification("Group Updated : " + data.name);
+        setNotification("Successfully Updated Group: " + data.name);
+        setShowModal(true)
       })
       .catch((error) => {
         console.log(error);
-        setNotification("Some Error in creating group!");
-        navigate('/')
+        setNotification("Error: Group Update Failed!");
+        setShowModal(true)
       });
   };
 
@@ -147,8 +153,8 @@ const GroupUpdate = () => {
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    {userSearchResults.map((user) => (
-                      <Dropdown.Item onClick={handleAddUser(user)}>
+                    {userSearchResults.map((user, idx) => (
+                      <Dropdown.Item key={idx} onClick={handleAddUser(user)}>
                         {user.name} : {user.email}
                       </Dropdown.Item>
                     ))}
@@ -174,12 +180,22 @@ const GroupUpdate = () => {
                 </ul>
               </Form.Group>
               <Button type="submit">Update</Button>
-              <i className="fa-regular fa-user"></i>
-              {notification && <p className="text-danger">{notification}</p>}
             </Form>
           </Col>
         </Row>
       </Container>
+      <Modal size="sm" show={showModal} onHide={handleClose}>
+        <Modal.Body  closeButton>
+          <p> {notification}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>{navigate('/detailedpages/groups/summary')}}>View Groups</Button>
+        </Modal.Footer>
+        
+      </Modal>
     </div>
   );
 };

@@ -16,20 +16,21 @@ const Login = () => {
   const userId = useSelector((state)=>state.user.id)
 
   useEffect(()=>{
-    if (userId === ""){
-      fetch('/api/users/checklogin').then((res)=>{
-        if (res.status === 200){return res.json()}
-        throw new Error})
-        .then((data)=>{
-          dispatch(userActions.updateLoggedInUser(data))
-          navigate('/detailedpages/user/home')
-          })
-        .catch((error)=>{
-          console.log(error)
+    fetch('/api/users/checklogin').then((res)=>{
+      if (res.status === 200){return res.json()}
+      throw new Error})
+      .then((data)=>{
+        dispatch(userActions.updateLoggedInUser(data))
+        navigate('/detailedpages/user/home')
         })
-    } else {
-      navigate("/detailedpages/user/home")
-    }
+      .catch((error)=>{
+        console.log(error)
+      })
+    // if (userId === ""){
+      
+    // } else {
+    //   navigate("/detailedpages/user/home")
+    // }
   },[])
 
   const handleSubmit = (event) => {

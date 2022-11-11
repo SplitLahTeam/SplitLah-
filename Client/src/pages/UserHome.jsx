@@ -28,7 +28,11 @@ const UserHome = () => {
   
   useEffect(()=>{
     fetch('/api/users/summary')
-    .then((res)=>res.json())
+    .then((res)=>{
+      if (res.status !== 200){
+        throw new Error({msg:"Server Error"})
+      }
+      return res.json()})
     .then((data)=>{
       console.log(data)
       dispatch(userSummaryActions.updateUserSummary(data))})
