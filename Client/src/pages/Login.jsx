@@ -80,7 +80,7 @@ const Login = () => {
               </Button>
               <br />
               <Form.Text className="text-muted">
-                Don't have an account? Sign up <a onClick={()=>navigate('/users/register')}>here</a>
+                Don't have an account? Sign up <a  style={{cursor:'pointer'}} onClick={()=>navigate('/users/register')}>here</a>
               </Form.Text>
             </Col>
           </Row>

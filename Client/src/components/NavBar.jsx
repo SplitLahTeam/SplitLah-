@@ -38,7 +38,7 @@ const NavBar = () => {
     <>
       <Navbar bg="dark" variant="dark" expand={"sm"}>
       <Container fluid>
-        <Navbar.Brand onClick={handleBrandTxtClick}>Split-Lah!</Navbar.Brand>
+        <Navbar.Brand  style={{cursor:'pointer'}} onClick={handleBrandTxtClick}>Split-Lah!</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           {userLoggedIn && <Nav
