@@ -1,5 +1,8 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col'
 import {useSelector, useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import {useState, useEffect} from 'react'
@@ -58,27 +61,37 @@ const Login = () => {
   };
 
   return (
-    <Form method="post" onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <h2>Login</h2>
-        {loginFail && <p variant='primary'>Login Failed</p>}
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" name="email" placeholder="Enter email" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" name="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Login
-      </Button>
-      <br />
-      <Form.Text className="text-muted">
-        Don't have an account? Sign up <a onClick={()=>navigate('/users/register')}>here</a>
-      </Form.Text>
-    </Form>
+    <Row className="justify-content-center mt-3">
+    <Col xs={6} md={4}>
+      <container fluid>
+        <Form method="post" onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <h2 className='text-center'>Login</h2>
+            {loginFail && <p variant='primary'>Login Failed</p>}
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" name="email" placeholder="Enter email" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" name="password" placeholder="Password" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          </Form.Group>
+          <Row >
+            <Col className='text-end'>
+              <Button variant="primary" type="submit">
+                Login
+              </Button>
+              <br />
+              <Form.Text className="text-muted">
+                Don't have an account? Sign up <a onClick={()=>navigate('/users/register')}>here</a>
+              </Form.Text>
+            </Col>
+          </Row>
+        </Form>
+      </container>  
+    </Col>
+    </Row>
   );
 }
 
