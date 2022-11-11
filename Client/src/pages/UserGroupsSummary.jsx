@@ -1,5 +1,7 @@
 import Image from "react-bootstrap/Image";
-import container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Button from "react-bootstrap/Button";
 import profile from "../images/profile.png";
 import {useEffect} from 'react'
@@ -68,16 +70,22 @@ const UserGroupsSummary = () => {
   return (
     <container fluid>
     <div>
-      <div className="groups-head">
-        <Image src={profile} style={{ width: "100px", borderRadius: "50%" }} />
+      <Row>
+        <Col xs="auto" className="w-2 mt-2 ms-4">
+          <Image src={profile} style={{ width: "100px", borderRadius: "50%" }} />
+        </Col>
+        <Col className="my-auto">
         <h1>My Groups</h1>
-        <p className="text-muted">List of groups that you're in</p>
+        <p className="text-muted">Groups that you're part of</p>
+        </Col>
+        <Col xs="auto" className="text-end my-auto me-4">
         <Button onClick={() => navigate("/group/register")} variant="primary">
           Create Group
         </Button>
-      </div>
+        </Col>
+      </Row>
       <hr className="divider"></hr>
-      <div className="d-flex flex-wrap">
+      <div className="d-flex ms-auto justify-content-center flex-wrap">
         {groupsSummaryList.map((group) => (
           <CardIndividualGroup
             key={group.id}
