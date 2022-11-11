@@ -189,5 +189,26 @@ const getGroupDetails = async (req,res) => {
     }
 }
 
-module.exports = {registerGroup, updateGroup, getGroupsSummary, getGroupDetails}
+const deleteGroup = async (req, res) => {
+    const id = req.body.id;
+    try {
+        const group = await Group.findByIdAndDelete(id)
+        
+        if (group === null) {
+            res.status(400).json({
+                msg: "Wrong ID"
+            })
+        } else {
+            res.status(200).json({
+                msg: "Successfully deleted group:", name: group.name 
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            msg: "Server error"
+        })
+    }
+}
+
+module.exports = {registerGroup, updateGroup, getGroupsSummary, getGroupDetails, deleteGroup}
 
