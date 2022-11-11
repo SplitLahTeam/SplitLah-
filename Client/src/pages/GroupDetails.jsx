@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {selectedTransactionActions} from '../store/selectedTransactionSlice'
+import Container from "react-bootstrap/Container";
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Button from "react-bootstrap/Button";
 import CardMoneyBalance from "../components/CardMoneyBalance";
 import CardIndividualMember from "../components/CardIndividualMember";
@@ -33,17 +36,23 @@ const GroupDetails = () => {
   }
 
   return (
-    <div>
-      <div className="groups-head">
-        <div className="circle-thumbnail">{Array.from(groupName)[0]}</div>
-        <h1>{groupName}</h1>
-        <p className="text-muted">{groupDescription}</p>
-        <Button onClick={() => navigate("/group/edit")}>Edit Group</Button>
-      </div>
+    <Container fluid>
+      <Row>
+        <Col xs="auto" className="mt-2 d-none d-sm-block">
+          <div className="circle-thumbnail">{Array.from(groupName)[0]}</div>
+        </Col>
+        <Col className="text-center text-sm-start my-auto">
+          <h1>{groupName}</h1>
+          <p className="text-muted">{groupDescription}</p>
+        </Col>
+        <Col xs="auto" className="my-auto">
+          <Button onClick={() => navigate("/group/edit")}>Edit Group</Button>
+        </Col>
+      </Row>
       <hr className="divider"></hr>
-      <h3>Balances</h3>
-      <div className="balance-section">
-        <div className="money-balance">
+      <h3 className="text-center">Balances</h3>
+      <Row className="balance-section text-center">
+        <div className="d-flex justify-content-center">
           <div className="card-money-balance">
             <CardMoneyBalance
               moneyBalanceTitle="You owe"
@@ -64,7 +73,10 @@ const GroupDetails = () => {
               moneyBalanceAmount={netAmount.netToReceive}
             />
           </div>
-          <div className="button-stacked">
+          
+        </div>
+      </Row>
+      <div className="button-stacked">
             <div className="button-padding">
               <Button onClick={() => navigate("/detailedpages/group/transactions")}>View Transactions</Button>
             </div>
@@ -72,11 +84,9 @@ const GroupDetails = () => {
               <Button onClick={() => navigate("/transaction/register")}>Add Transactions</Button>
             </div>
           </div>
-        </div>
-      </div>
       <hr className="divider"></hr>
-      <h3>Members – {totalMembers}</h3>
-      <div className="group-cluster">
+      <h3 className="text-center">Members – {totalMembers}</h3>
+      <div className="d-flex ms-auto justify-content-center flex-wrap">
         {groupMembers.map((member) => (
           <CardIndividualMember
             groupMemberName={member.name}
@@ -85,7 +95,7 @@ const GroupDetails = () => {
           />
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 

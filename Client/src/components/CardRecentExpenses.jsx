@@ -16,7 +16,7 @@ const CardRecentExpenses = ({expenseTitle, transactionList}) => {
         <Accordion.Body>
             <ul>
               {transactionList.map((transaction,idx) =>
-              <li key={idx}>{transaction.paidByName || transaction.receivedByName} on {moment.unix(Date.parse(transaction.updatedAt)/1000).format("DD-MMM-YY")} ({transaction.description}) ${transaction.amount}</li>
+              <li key={idx}>{transaction?.paidByName || transaction?.receivedByName} on {moment.unix(Date.parse(transaction.updatedAt || 0)/1000).format("DD-MMM-YY")} ({transaction.description}) ${transaction.amount}</li>
             )}
             </ul>
         </Accordion.Body>

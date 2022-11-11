@@ -52,7 +52,7 @@ const UserHome = () => {
       <hr className="divider"></hr>
       <Row>
         <div className="col-md-5">
-          <div className="money-balance">
+          <div className="d-flex justify-content-center">
             <div className="card-money-balance">
               <CardMoneyBalance moneyBalanceTitle="You owe" colorClass="text-danger" moneyBalanceAmount={netReceivedAmount}/>
             </div>
@@ -63,7 +63,7 @@ const UserHome = () => {
               <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />
             </div>
           </div>
-          <div className="users-groups m-1">
+          <div className="users-groups m-1 mx-2">
             <CardUserGroupSummary />
           </div>
         </div>

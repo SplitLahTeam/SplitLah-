@@ -76,18 +76,16 @@
 
 .button-stacked {
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   padding: 0.5em;
-  align-items: center;
+  justify-content: center;
 }
 
 .button-padding {
   padding: 0.5em;
 }
 
-.money-balance {
-  display: flex;
-}
+
 
 .card-money-balance {
   padding: 10px;
