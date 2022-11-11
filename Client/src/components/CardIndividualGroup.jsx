@@ -10,11 +10,11 @@ const CardIndividualGroup = (props) => {
         <Card.Body>
           <Card.Title style={{ fontSize: "28px", textAlign: "center" }}>{props.groupName}</Card.Title>
           <hr className="divider"></hr>
-          <Card.Text style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center" }}>
             {(props.amountToReceive < 0) && <p className="text-danger">You owe ${-1*props.amountToReceive}</p>}
             {(props.amountToReceive > 0) && <p className="text-success">You are to receive ${props.amountToReceive}</p>}
             {(props.amountToReceive === 0) && <p>Net Balanced</p>}             
-          </Card.Text>
+          </div>
           <div className="button-spacing">
             <Button className="center-button" onClick={props.groupClick} variant="primary">
               View Group

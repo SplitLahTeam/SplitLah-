@@ -44,14 +44,14 @@ const CardUserGroupSummary = () => {
       <Card variant="light">
         <Card.Header className='text-center'>Your Groups – {totalGroups}</Card.Header>
         <Card.Body>
-          <Card.Text>
-            <ul>
-              {userGroups.map((group) => (
-                <Button style={{minWidth:"130px"}} className='m-2' onClick={handleGroupClick(group._id)} key={group._id}>{group.name}</Button>
+          <ul>
+            <Card.Text>            
+              {userGroups.map((group, idx) => (
+                <Button key={idx} style={{minWidth:"130px"}} className='m-2' onClick={handleGroupClick(group._id)}>{group.name}</Button>
               ))}
-              <Button className='d-block text-center mx-auto mt-3' variant='secondary' onClick={handleAddGroupClick}>Create a New group</Button>
-            </ul>
-          </Card.Text>
+              <Button className='d-block text-center mx-auto mt-3' variant='secondary' onClick={handleAddGroupClick}>Create a New group</Button>            
+            </Card.Text>
+          </ul>      
         </Card.Body>
       </Card>
     </div>

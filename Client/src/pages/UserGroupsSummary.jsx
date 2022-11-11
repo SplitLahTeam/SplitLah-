@@ -68,7 +68,7 @@ const UserGroupsSummary = () => {
   };
 
   return (
-    <container fluid>
+    <Container fluid>
     <div>
       <Row>
         <Col xs="auto" className="mt-2 ms-4 d-none d-sm-block">
@@ -96,7 +96,7 @@ const UserGroupsSummary = () => {
         ))}
       </div>
     </div>
-    </container>
+    </Container>
   );
 };
 

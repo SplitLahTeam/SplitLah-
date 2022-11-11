@@ -87,8 +87,8 @@ const GroupDetails = () => {
       <hr className="divider"></hr>
       <h3 className="text-center">Members – {totalMembers}</h3>
       <div className="d-flex ms-auto justify-content-center flex-wrap">
-        {groupMembers.map((member) => (
-          <CardIndividualMember
+        {groupMembers.map((member, idx) => (
+          <CardIndividualMember key={idx}
             groupMemberName={member.name}
             amountToRecieve = {member.amountToRecieve}
             handleSettleUp = {handleSettleUp(member)}

@@ -102,27 +102,23 @@ const GroupTransactions = () => {
       </Row>
       <hr className="divider"></hr>
       <Row>
-        <Col xs={12} md={5} className="mb-5 d-flex row justify-content-center align-items-center">
+        <Col xs={12} md={5} className="mb-5">
           <CardRecentExpenses 
-          expenseTitle="Paid to" transactionList={paidTransactionList} />
-          <Row className='text-center'>
-            <ButtonGroup className='text-center' aria-label="Basic example">
-              <Button style={{maxWidth:"50px"}}  onClick={decPaidTransactionsPageNum} variant="secondary">{"<<"}</Button>
-              <p className='my-auto'>Page # {paidTransactionsPageNum} .</p>
-              <Button style={{maxWidth:"50px"}} onClick={incPaidTransactionsPageNum} variant="secondary">{">>"}</Button>
-            </ButtonGroup>
-          </Row>
+          expenseTitle="Paid to" transactionList={paidTransactionList} />     
+          <ButtonGroup className='d-flex justify-content-center' aria-label="Basic example">
+            <Button style={{maxWidth:"50px"}}  onClick={decPaidTransactionsPageNum} variant="secondary">{"<<"}</Button>
+            <p className='my-auto'>Page # {paidTransactionsPageNum} .</p>
+            <Button style={{maxWidth:"50px"}} onClick={incPaidTransactionsPageNum} variant="secondary">{">>"}</Button>
+          </ButtonGroup>
         </Col>
         <Col xs={12} md={5} className="mb-5 d-flex row justify-content-center align-items-center">
           <CardRecentExpenses 
           expenseTitle="Received from" transactionList={receivedTransactionList} />
-          <Row className='text-center'>
-            <ButtonGroup aria-label="Basic example">
-              <Button style={{maxWidth:"50px"}} onClick={decReceivedTransactionsPageNum} variant="secondary">{"<<"}</Button>
-              <p className='my-auto'>Page # {receivedTransactionsPageNum} .</p>
-              <Button style={{maxWidth:"50px"}} onClick={incReceivedTransactionsPageNum} variant="secondary">{">>"}</Button>
-            </ButtonGroup>
-          </Row>
+          <ButtonGroup className='d-flex justify-content-center' aria-label="Basic example">
+            <Button style={{maxWidth:"50px"}} onClick={decReceivedTransactionsPageNum} variant="secondary">{"<<"}</Button>
+            <p className='my-auto'>Page # {receivedTransactionsPageNum} .</p>
+            <Button style={{maxWidth:"50px"}} onClick={incReceivedTransactionsPageNum} variant="secondary">{">>"}</Button>
+          </ButtonGroup>
         </Col>
       </Row>
     </Container>

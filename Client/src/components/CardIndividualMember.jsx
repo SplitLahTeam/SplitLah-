@@ -15,11 +15,11 @@ const CardIndividualMember = (props) => {
             {props.groupMemberName}
           </Card.Title>
           <hr className="divider"></hr>
-          <Card.Text className="mb-2" style={{ textAlign: "center" }}>
+          <div className="mb-2" style={{ textAlign: "center" }}>
             {(props.amountToRecieve < 0) && <p className="text-danger">You owe ${-1*props.amountToRecieve}</p>}
             {(props.amountToRecieve > 0) && <p className="text-success">You are to receive ${props.amountToRecieve}</p>}
             {(props.amountToRecieve === 0) && <p>You are settled-up!</p>} 
-          </Card.Text>
+          </div>
           {(props.amountToRecieve === 0) || <Button className="center-button my-2" onClick={props.handleSettleUp} variant="primary">
               Settle Up!
             </Button>}

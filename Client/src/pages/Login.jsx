@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col'
 import {useSelector, useDispatch} from 'react-redux'
@@ -63,7 +63,7 @@ const Login = () => {
   return (
     <Row className="justify-content-center mt-3">
     <Col xs={6} md={4}>
-      <container fluid>
+      <Container fluid>
         <Form method="post" onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <h2 className='text-center'>Login</h2>
@@ -89,7 +89,7 @@ const Login = () => {
             </Col>
           </Row>
         </Form>
-      </container>  
+      </Container>  
     </Col>
     </Row>
   );
