@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectedGroupActions } from "../store/selectedGroupSlice";
 import {groupSummaryActions} from '../store/groupSummarySlice'
 import CardIndividualGroup from "../components/CardIndividualGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const UserGroupsSummary = () => {
   const navigate = useNavigate();
@@ -72,7 +74,7 @@ const UserGroupsSummary = () => {
     <div>
       <Row>
         <Col xs="auto" className="mt-2 ms-4 d-none d-sm-block">
-          <Image src={profile} style={{ width: "100px", borderRadius: "50%" }} />
+          <FontAwesomeIcon icon={faPeopleGroup} style={{height:"50px", "border-radius":"50%"}} className="m-2 bg-warning"/>
         </Col>
         <Col className="my-auto text-sm-start text-center">
         <h1>My Groups</h1>

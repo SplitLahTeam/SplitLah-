@@ -61,7 +61,7 @@ const UpdateUser = () => {
         <Image src={profile} className="mx-3 my-1" style={{ width: '80px', borderRadius: '50%' }}/>
         <h1 className="my-auto text-center">Edit profile</h1>
       </div>
-      <hr className="divider"></hr>
+      <hr className="divider mx-auto" style={{ width: "400px" }}></hr>
       <Container fluid>
         <Row className="text-center">
           <Col className="text-center d-flex justify-content-center">

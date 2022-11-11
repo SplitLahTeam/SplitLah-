@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const GroupRegister = () => {
   const [selectedUserList, setSelectedUserList] = useState([]);
@@ -92,10 +93,12 @@ const GroupRegister = () => {
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        <div className="circle-thumbnail">•••</div>
+        {/* <div className="circle-thumbnail">•••</div>
+        <FontAwesomeIcon icon={"fa-solid fa-people-group"} /> */}
+        <FontAwesomeIcon icon={faPeopleGroup} style={{height:"50px", "border-radius":"50%"}} className="m-2 bg-warning"/>
         <h1>Create group</h1>
       </div>
-      <hr className="divider"></hr>
+      <hr className="divider mx-auto" style={{ width: "400px" }}></hr>
       <Container fluid>
         <Row className="text-center">
           <Col className="text-center d-flex justify-content-center">
@@ -118,7 +121,7 @@ const GroupRegister = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label className="d-block">Members:</Form.Label>
+                <Form.Label className="d-block">Find Members:</Form.Label>
                 <Dropdown onClick={handleUserSearch} className="d-inline">
                   <Dropdown.Toggle variant="primary" id="dropdown-basic">
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -138,17 +141,19 @@ const GroupRegister = () => {
                   ref={searchTextBoxRef}
                 />
               </Form.Group>
+              <Form.Group>
+              <Form.Label className="d-block">Selected Members:</Form.Label>
+              </Form.Group>
               <Form.Group className="mb-3">
                 <ul>
                   {selectedUserList.map((user) => (
-                    <li>
+                    <li style={{"list-style":"none"}} className="text-start">
                       {user.name} : {user.email}
                     </li>
                   ))}
                 </ul>
               </Form.Group>
               <Button type="submit">Create</Button>
-              <i className="fa-regular fa-user"></i>
               {notification && <p className="text-danger">{notification}</p>}
             </Form>
           </Col>

@@ -9,7 +9,7 @@ const getPaidTransactions = async (req,res) => {
         const userId = req.session.userId
         const groupId = req.body.groupId
         const pageNum = req.body.pageNum - 1
-        const paidTransactionListRaw = await Transaction.find({groupId, paidBy:userId},["receivedBy","amount","description","createdAt","updatedAt"],{limit:10,skip:(10*pageNum)})
+        const paidTransactionListRaw = await Transaction.find({groupId, paidBy:userId},["receivedBy","amount","description","createdAt","updatedAt"],{limit:10,skip:(10*pageNum), sort:{"updatedAt":-1}})
 
         const paidTransactionList = []
         for (const transactionRaw of paidTransactionListRaw){
@@ -32,7 +32,7 @@ const getReceivedTransactions = async (req,res) => {
         const userId = req.session.userId
         const groupId = req.body.groupId
         const pageNum = req.body.pageNum - 1
-        const receivedTransactionListRaw = await Transaction.find({groupId, receivedBy:userId},["paidBy","amount","description","createdAt","updatedAt"],{limit:10, skip:(10*pageNum)})
+        const receivedTransactionListRaw = await Transaction.find({groupId, receivedBy:userId},["paidBy","amount","description","createdAt","updatedAt"],{limit:10, skip:(10*pageNum), sort:{"updatedAt":-1}})
         const receivedTransactionList = []
         for (const transactionRaw of receivedTransactionListRaw) {
             const transaction = transactionRaw.toObject()

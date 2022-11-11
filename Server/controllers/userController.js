@@ -191,6 +191,8 @@ const searchUser = async (req,res) => {
         const searchText = req.body.searchText
         const userListRaw = await User.find({
             $or: [{email:{$regex: searchText}},{name:{$regex: searchText}}]
+        }, null, {
+            limit:5
         })
         const userList = userListRaw.map((user)=>{
             return {id: user._id, name:user.name, email:user.email}
