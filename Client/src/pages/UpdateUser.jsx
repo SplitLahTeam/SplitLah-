@@ -1,17 +1,21 @@
 import { useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import {useNavigate} from 'react-router-dom'
 import {userActions} from '../store/userSlice';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Modal from 'react-bootstrap/Modal';
 import Image from "react-bootstrap/esm/Image";
 import profile from "../images/profile.png";
 
 const UpdateUser = () => {
+  const navigate = useNavigate()
   const user = useSelector((state) => state.user);
   const [notification, setNotification] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch()
   const initialName = user.name;
   const initialEmail = user.email;
@@ -48,10 +52,12 @@ const UpdateUser = () => {
     .then((data) => {
       setNotification("User updated : " + data.name);
       dispatch(userActions.updateLoggedInUser({id: user.id, name, email}))
+      setShowModal(true)
     })
     .catch((error) => {
       console.log(error);
       setNotification("Some error in updating user!");
+      setShowModal(true)
     });
   };
 
@@ -105,6 +111,18 @@ const UpdateUser = () => {
           </Col>
         </Row>
       </Container>
+      <Modal size="sm" show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Body  closeButton>
+          <p> {notification}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>{navigate('/detailedpages/user/home')}}>User Home</Button>
+        </Modal.Footer>
+        
+      </Modal>
     </div>
   );
 };
