@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
+import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
@@ -18,6 +19,7 @@ const GroupRegister = () => {
     { id: 2, name: "B", email: "B" },
   ]);
   const [notification, setNotification] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const searchTextBoxRef = useRef();
 
   const handleUserSearch = async () => {
@@ -85,11 +87,12 @@ const GroupRegister = () => {
       })
       .then((data) => {
         setNotification("Group Created : " + data.name);
+        setShowModal(true)
       })
       .catch((error) => {
         console.log(error);
-        setNotification("Some Error in creating group!");
-        navigate('/')
+        setNotification("Error in creating group!");
+        setShowModal(true)
       });
   };
 
@@ -160,6 +163,17 @@ const GroupRegister = () => {
           </Col>
         </Row>
       </Container>
+      <Modal size="sm" show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Body  closeButton>
+          <p> {notification}</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={()=>{navigate('/detailedpages/groups/summary')}}>View Groups</Button>
+        </Modal.Footer>        
+      </Modal>
     </div>
   );
 };

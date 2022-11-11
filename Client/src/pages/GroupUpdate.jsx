@@ -29,8 +29,6 @@ const GroupUpdate = () => {
   const [notification, setNotification] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
 
   const handleUserSearch = async () => {
     const searchText = searchTextBoxRef.current.value;
@@ -78,13 +76,6 @@ const GroupUpdate = () => {
     const name = event.target.name.value;
     const description = event.target.description.value;
     const userList = selectedUserList.map((user) => user.id);
-    console.log(
-      "Handle Submit",
-      selectedGroup.groupId,
-      name,
-      description,
-      userList
-    );
     if (!name || !description || userList === []) {
       setNotification("Inputs cannot be blank");
       return;
@@ -184,12 +175,12 @@ const GroupUpdate = () => {
           </Col>
         </Row>
       </Container>
-      <Modal size="sm" show={showModal} onHide={handleClose}>
+      <Modal size="sm" show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Body  closeButton>
           <p> {notification}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
             Close
           </Button>
           <Button variant="primary" onClick={()=>{navigate('/detailedpages/groups/summary')}}>View Groups</Button>

@@ -26,11 +26,6 @@ const Login = () => {
       .catch((error)=>{
         console.log(error)
       })
-    // if (userId === ""){
-      
-    // } else {
-    //   navigate("/detailedpages/user/home")
-    // }
   },[])
 
   const handleSubmit = (event) => {
