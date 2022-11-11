@@ -71,10 +71,10 @@ const UserGroupsSummary = () => {
     <container fluid>
     <div>
       <Row>
-        <Col xs="auto" className="w-2 mt-2 ms-4">
+        <Col xs="auto" className="mt-2 ms-4 d-none d-sm-block">
           <Image src={profile} style={{ width: "100px", borderRadius: "50%" }} />
         </Col>
-        <Col className="my-auto">
+        <Col className="my-auto text-sm-start text-center">
         <h1>My Groups</h1>
         <p className="text-muted">Groups that you're part of</p>
         </Col>

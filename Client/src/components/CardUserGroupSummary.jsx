@@ -41,7 +41,7 @@ const CardUserGroupSummary = () => {
 
   return (
     <div>
-      <Card variant="light" style={{ width: "30rem" }}>
+      <Card variant="light">
         <Card.Header>Groups – {totalGroups}</Card.Header>
         <Card.Body>
           <Card.Text>

@@ -1,5 +1,8 @@
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import {useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect} from 'react'
@@ -33,35 +36,47 @@ const UserHome = () => {
   },[])
 
   return (
-    <div>
-      <div className="dashboard-head">
-        <Image src={profile} style={{ width: '100px', borderRadius: '50%' }}/>
-        <h1>Hi {user.name}!</h1>
-        <p className="text-muted">Welcome to your dahsboard</p>
-        <Button onClick={() => navigate("/users/edit")} variant="primary">Edit Profile</Button>
-      </div>
+    <Container fluid>
+      <Row>
+        <Col xs="auto" className="mt-2 d-none d-sm-block">
+          <Image src={profile} style={{ width: '100px', borderRadius: '50%' }}/>
+        </Col>
+        <Col className="my-auto text-center text-sm-start">
+          <h1>Hi {user.name}!</h1>
+          <p className="text-muted">Welcome to your dahsboard</p>
+        </Col>
+        <Col xs="auto" className="my-auto">
+          <Button onClick={() => navigate("/users/edit")} variant="primary">Edit Profile</Button>
+        </Col>
+      </Row>
       <hr className="divider"></hr>
-      <div className="money-balance">
-        <div className="card-money-balance">
-          <CardMoneyBalance moneyBalanceTitle="You owe" colorClass="text-danger" moneyBalanceAmount={netReceivedAmount}/>
+      <Row>
+        <div className="col-md-5">
+          <div className="money-balance">
+            <div className="card-money-balance">
+              <CardMoneyBalance moneyBalanceTitle="You owe" colorClass="text-danger" moneyBalanceAmount={netReceivedAmount}/>
+            </div>
+            <div className="card-money-balance">
+              <CardMoneyBalance moneyBalanceTitle="You are owed" colorClass="text-success" moneyBalanceAmount={netPaidAmount}/>
+            </div>
+            <div className="card-money-balance">
+              <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />
+            </div>
+          </div>
+          <div className="users-groups m-1">
+            <CardUserGroupSummary />
+          </div>
         </div>
-        <div className="card-money-balance">
-          <CardMoneyBalance moneyBalanceTitle="You are owed" colorClass="text-success" moneyBalanceAmount={netPaidAmount}/>
+        <div className="recent-expenses m-1 col-md-6">
+          <h4 className="text-center mt-3">Recent Transactions</h4>
+          <CardRecentExpenses 
+          expenseTitle="Paid to" transactionList={recentTransactionPaidList} />
+          <CardRecentExpenses 
+          expenseTitle="Received from" transactionList={recentTransactionReceviedList} />
         </div>
-        <div className="card-money-balance">
-          <CardMoneyBalance moneyBalanceTitle="Total balance" moneyBalanceAmount={netAmountToReceive} />
-        </div>
-      </div>
-      <div className="recent-expenses">
-        <CardRecentExpenses 
-        expenseTitle="Paid to" transactionList={recentTransactionPaidList} />
-        <CardRecentExpenses 
-        expenseTitle="Received from" transactionList={recentTransactionReceviedList} />
-      </div>
-      <div className="users-groups">
-        <CardUserGroupSummary />
-      </div>
-    </div>
+        
+      </Row>
+    </Container>
   );
 };
 

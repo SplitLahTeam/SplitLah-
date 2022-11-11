@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 const CardMoneyBalance = (props) => {
   return (
     <div>
-      <Card variant="light" style={{ width: '10rem' }}>
+      <Card variant="light" >
         <Card.Header>{props.moneyBalanceTitle}</Card.Header>
         <Card.Body>
           <Card.Text className={props.colorClass}>${props.moneyBalanceAmount}</Card.Text>

@@ -1,4 +1,5 @@
 import Accordion from 'react-bootstrap/Accordion';
+import Row from 'react-bootstrap/Row'
 // import Moment from 'react-moment'
 import moment from 'moment'
 
@@ -8,8 +9,8 @@ const CardRecentExpenses = ({expenseTitle, transactionList}) => {
   console.log(moment.unix(Date.parse(transactionList[0].updatedAt)/1000).format("MM/DD/YYYY HH:mm"))
   // console.log(moment(transactionList[0].updatedAt, "YYYYMMDD HH"))
   return (
-    <div>
-    <Accordion defaultActiveKey="0" style={{ width: '24rem' }} >
+    <Row className='m-1 my-2'>
+    <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey="0">
         <Accordion.Header>{expenseTitle}</Accordion.Header>
         <Accordion.Body>
@@ -21,7 +22,7 @@ const CardRecentExpenses = ({expenseTitle, transactionList}) => {
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
-    </div>
+    </Row>
   )
 }
 

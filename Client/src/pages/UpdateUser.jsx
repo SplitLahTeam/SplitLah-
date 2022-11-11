@@ -58,8 +58,8 @@ const UpdateUser = () => {
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        <Image src={profile} style={{ width: '100px', borderRadius: '50%' }}/>
-        <h1>Edit profile</h1>
+        <Image src={profile} className="mx-3 my-1" style={{ width: '80px', borderRadius: '50%' }}/>
+        <h1 className="my-auto text-center">Edit profile</h1>
       </div>
       <hr className="divider"></hr>
       <Container fluid>

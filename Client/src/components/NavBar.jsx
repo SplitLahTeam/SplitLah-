@@ -36,7 +36,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark" expand="sm">
+      <Navbar bg="dark" variant="dark" expand={"sm"}>
       <Container fluid>
         <Navbar.Brand onClick={handleBrandTxtClick}>Split-Lah!</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -51,7 +51,7 @@ const NavBar = () => {
           </Nav>}
         </Navbar.Collapse>
           {userLoggedIn && <Nav className="ms-auto">
-            {userLoggedIn && <div><p className='text-light text-center p-0 m-0 mx-1'>Hi! </p> <p className='text-light text-center p-0 m-0 mx-1'>{user.name}</p></div>}
+            {userLoggedIn && <div><p className='text-light text-center p-0 m-0 mx-1 d-none d-sm-block'>Hi! </p> <p className='text-light text-center p-0 m-0 mx-1'>{user.name}</p></div>}
             {userLoggedIn && <Button  onClick={handleLogOutButtonClick} variant="danger">Log out</Button>}
           </Nav>}
       </Container>

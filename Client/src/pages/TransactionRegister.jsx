@@ -75,8 +75,8 @@ const TransactionRegister = () => {
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        <div className="circle-thumbnail">•••</div>
-        <h1>Add a transaction</h1>
+        <div className="circle-thumbnail mt-1">•••</div>
+        <h1 className="my-auto ms-2">Add a transaction</h1>
       </div>
       <hr className="divider"></hr>
       <Container fluid>

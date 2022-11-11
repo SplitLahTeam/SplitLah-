@@ -110,8 +110,8 @@ const GroupUpdate = () => {
   return (
     <div>
       <div className="transaction-head d-flex justify-content-center">
-        <div className="circle-thumbnail">•••</div>
-        <h1>Edit Group</h1>
+        <div className="circle-thumbnail my-1 mx-2">•••</div>
+        <h1 className="my-auto">Edit Group</h1>
       </div>
       <hr className="divider"></hr>
       <Container fluid>
