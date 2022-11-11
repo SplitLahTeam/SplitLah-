@@ -73,6 +73,32 @@ const UserGroupsSummary = () => {
     };
   };
 
+  const handleGroupDelete = (groupId) => {
+    return async () => {
+      console.log("deleting", groupId)
+      fetch("/api/groups/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: groupId })
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status !== 200) {
+          throw new Error({ msg: "Some comm error" });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
+  };
+
   return (
     <Container fluid>
     <div>
@@ -98,6 +124,7 @@ const UserGroupsSummary = () => {
             groupName={group.name}
             amountToReceive = {group.amountToReceive}
             groupClick={handleGroupClick(group.id)}
+            groupDelete={handleGroupDelete(group.id)}
           />
         ))}
       </div>
