@@ -1,5 +1,8 @@
 import {useSelector, useDispatch} from 'react-redux'
 import {useEffect} from 'react'
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import {transactionListActions} from '../store/transactionListSlice'
@@ -87,30 +90,42 @@ const GroupTransactions = () => {
     }
   }
   return (
-    <div>
-      <div className="transactions-head">
-        <div className="circle-thumbnail">{Array.from(groupName)[0]}</div>
-        <h1>Transactions</h1>
-        <p className="text-muted">For {groupName}</p>
-      </div>
+    <Container fluid>
+      <Row>
+        <Col xs="auto" className='d-none d-sm-block mt-2'>
+          <div className="circle-thumbnail">{Array.from(groupName)[0]}</div>
+        </Col>
+        <Col className='text-center text-sm-start my-auto'>
+          <h1>Transactions</h1>
+          <p className="text-muted">For {groupName}</p>
+        </Col>
+      </Row>
       <hr className="divider"></hr>
-      <div className="recent-expenses">
-        <CardRecentExpenses 
-        expenseTitle="Paid to" transactionList={paidTransactionList} />
-        <ButtonGroup aria-label="Basic example">
-          <Button onClick={decPaidTransactionsPageNum} variant="secondary">{"<<"}</Button>
-          <p>Page # {paidTransactionsPageNum} .</p>
-          <Button onClick={incPaidTransactionsPageNum} variant="secondary">{">>"}</Button>
-        </ButtonGroup>
-        <CardRecentExpenses 
-        expenseTitle="Received from" transactionList={receivedTransactionList} />
-        <ButtonGroup aria-label="Basic example">
-          <Button onClick={decReceivedTransactionsPageNum} variant="secondary">{"<<"}</Button>
-          <p>Page # {receivedTransactionsPageNum} .</p>
-          <Button onClick={incReceivedTransactionsPageNum} variant="secondary">{">>"}</Button>
-        </ButtonGroup>
-      </div>
-    </div>
+      <Row>
+        <Col xs={12} md={5} className="mb-5 d-flex row justify-content-center align-items-center">
+          <CardRecentExpenses 
+          expenseTitle="Paid to" transactionList={paidTransactionList} />
+          <Row className='text-center'>
+            <ButtonGroup className='text-center' aria-label="Basic example">
+              <Button style={{maxWidth:"50px"}}  onClick={decPaidTransactionsPageNum} variant="secondary">{"<<"}</Button>
+              <p className='my-auto'>Page # {paidTransactionsPageNum} .</p>
+              <Button style={{maxWidth:"50px"}} onClick={incPaidTransactionsPageNum} variant="secondary">{">>"}</Button>
+            </ButtonGroup>
+          </Row>
+        </Col>
+        <Col xs={12} md={5} className="mb-5 d-flex row justify-content-center align-items-center">
+          <CardRecentExpenses 
+          expenseTitle="Received from" transactionList={receivedTransactionList} />
+          <Row className='text-center'>
+            <ButtonGroup aria-label="Basic example">
+              <Button style={{maxWidth:"50px"}} onClick={decReceivedTransactionsPageNum} variant="secondary">{"<<"}</Button>
+              <p className='my-auto'>Page # {receivedTransactionsPageNum} .</p>
+              <Button style={{maxWidth:"50px"}} onClick={incReceivedTransactionsPageNum} variant="secondary">{">>"}</Button>
+            </ButtonGroup>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
