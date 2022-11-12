@@ -1,10 +1,12 @@
 {
+  "main": "./apps/server/server.js",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "start": "cd apps/server && npm run start"
+    "start": "cd ./apps/server && npm run start"
   },
   "dependencies": {
+    "connect-mongodb-session": "^3.1.1",
     "turbo": "^1.6.3"
   },
   "workspaces": [
