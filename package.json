@@ -1,4 +1,7 @@
 {
+  "name": "03-poj3_splitlah",
+  "version": "1.0.0",
+  "description": "",
   "main": "./apps/server/server.js",
   "scripts": {
     "dev": "turbo run dev",
