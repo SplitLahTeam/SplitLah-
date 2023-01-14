@@ -28,6 +28,20 @@ Some of the strech target features include following:
 
 ## 📺 Visuals - User Interface
 
+The user login and user registration pages looks as follows:
+[Login and Registration](/SplitLah-/apps/client/src/images/loginRegistrationGif_v3.gif)
+
+The pages which display overall money oweing status is shown in the following gif. Overall, the details can be seen at 3 levels:
+
+- Overall summary with all the groups
+- Individual level within a group
+- Transaction level
+  [Monetary Status](/SplitLah-/apps/client/src/images/View_Transactions_v1.gif)
+
+The pages which enable the user to create new groups or enter new transactions is shown in the following gif:
+[Txn/ Group Update](/SplitLah-/apps/client/src/images/Add_Transactions_group.gif)
+.
+
 ## 🏗️ Program Architecture
 
 ![Back-End Architecture](/apps/client/src/images/BackEnd%20Architecture.jpg)
@@ -42,3 +56,8 @@ We systematically divided the project into sub-section and divided amongst us.
 [Link to Common Rules agreed](https://docs.google.com/document/d/1p-guP6gnfDuwsT9w-_g8t1SW-muOY0JWi8FJQ3KuEks/edit?usp=share_link)
 
 ## 🖥️ Technologies & Libraries Used
+- React
+- HTML, CSS (BootStrap)
+- Redux
+- NodeJS / Express (bcrypt, sessions)
+- Mongo DB
