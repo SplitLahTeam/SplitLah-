@@ -28,11 +28,7 @@ const Login = () => {
       })
   },[])
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const email = event.target.email.value
-    const password = event.target.password.value
-    
+  const loginAndNavigate = (email, password) => {
     fetch('/api/users/login', {
       method: 'POST',
       headers: {
@@ -54,14 +50,30 @@ const Login = () => {
       .catch((error)=>{
         console.log(error)
       })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value
+    const password = event.target.password.value
+    loginAndNavigate(email, password)
   };
+
+  const handleDemo = () => {
+    const email = "a@gmail.com"
+    const password = "a123"
+    loginAndNavigate(email, password)
+  }
 
   return (
     <Row className="justify-content-center mt-3">
     <Col xs={6} md={4}>
       <Container fluid>
-        <Form method="post" onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <h2 className='text-center'>Welcome to SplitLah!</h2>
+          <p className='text-center'> Truly Singaporean app to keep track of expenses amongst friends! </p>
+          <p className="text-center">To explore features without Login ID - <Button variant="primary" onClick={handleDemo}>Demo</Button> </p>
+        <Form method="post" onSubmit={handleSubmit} className="border p-4">
+          <Form.Group className="mb-3 " controlId="formBasicEmail">
             <h2 className='text-center'>Login</h2>
             {loginFail && <p variant='primary'>Login Failed</p>}
             <Form.Label>Email address</Form.Label>
