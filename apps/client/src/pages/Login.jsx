@@ -67,11 +67,10 @@ const Login = () => {
 
   return (
     <Row className="justify-content-center mt-3">
-    <Col xs={6} md={4}>
+    <Col xs={9} md={4}>
       <Container fluid>
           <h2 className='text-center'>Welcome to SplitLah!</h2>
-          <p className='text-center'> Truly Singaporean app to keep track of expenses amongst friends! </p>
-          <p className="text-center">To explore features without Login ID - <Button variant="primary" onClick={handleDemo}>Demo</Button> </p>
+          <p className='text-center'> Singaporean app to keep track of expenses amongst friends! </p>
         <Form method="post" onSubmit={handleSubmit} className="border p-4">
           <Form.Group className="mb-3 " controlId="formBasicEmail">
             <h2 className='text-center'>Login</h2>
@@ -97,6 +96,7 @@ const Login = () => {
             </Col>
           </Row>
         </Form>
+          <p className="text-center m-1 mt-3">To explore features without Login ID - <Button variant="secondary" onClick={handleDemo}>Demo</Button> </p>
       </Container>  
     </Col>
     </Row>

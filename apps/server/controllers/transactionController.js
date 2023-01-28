@@ -51,7 +51,7 @@ const getReceivedTransactions = async (req,res) => {
 const registerTransaction = async (req,res) => {
 // req should contain - All schema entries of "Transaction" collection
     try {
-        const createdBy = req.session.userId
+        const createdBy = req.session.userId.toString()
         const paidBy = req.body.paidBy
         const receivedBy = req.body.receivedBy
         const amount = req.body.amount
@@ -59,8 +59,8 @@ const registerTransaction = async (req,res) => {
         const groupId = req.body.groupId
         const userListRaw = (await Group.findById(groupId)).toObject().userList
         const userList = userListRaw.map((user)=>user.toString())
-        console.log(userList)
-        console.log(createdBy, paidBy, receivedBy)
+        console.log("UL", userList)
+        console.log("CPR", createdBy, paidBy, receivedBy)
         if ((userList.find((user)=>(user===createdBy))) && (userList.find((user)=>(user===paidBy))) && (userList.find((user)=>(user===receivedBy)))) {
             const newTransaction = (await Transaction.create({createdBy, paidBy, receivedBy, amount, description, groupId})).toObject()
             res.status(201).json({msg:"Txn successfully created", ...newTransaction})
