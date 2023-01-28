@@ -1,3 +1,4 @@
+import img from '../images/splitLahHomeImg.jpg'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container'
@@ -11,6 +12,7 @@ import {userActions} from '../store/userSlice'
 const Login = () => {
 
   const [loginFail, setLoginFail] = useState(false)
+  const [isloading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userId = useSelector((state)=>state.user.id)
@@ -29,6 +31,7 @@ const Login = () => {
   },[])
 
   const loginAndNavigate = (email, password) => {
+    setIsLoading(true)
     fetch('/api/users/login', {
       method: 'POST',
       headers: {
@@ -36,7 +39,7 @@ const Login = () => {
       },
       body:JSON.stringify({email, password})
     }).then((res)=>{
-      console.log(res)
+      setIsLoading(false)
       if (res.status !== 202){
         setLoginFail(true)
         throw new Error({Msg: "Login Failed"})
@@ -48,6 +51,7 @@ const Login = () => {
         navigate('/detailedpages/user/home')
         })
       .catch((error)=>{
+        setIsLoading(false)
         console.log(error)
       })
   }
@@ -67,38 +71,55 @@ const Login = () => {
 
   return (
     <Row className="justify-content-center mt-3">
-    <Col xs={9} md={4}>
+    <Col xs={9} md={8} lg={6}>
       <Container fluid>
           <h2 className='text-center'>Welcome to SplitLah!</h2>
-          <p className='text-center'> Singaporean app to keep track of expenses amongst friends! </p>
-        <Form method="post" onSubmit={handleSubmit} className="border p-4">
-          <Form.Group className="mb-3 " controlId="formBasicEmail">
-            <h2 className='text-center'>Login</h2>
-            {loginFail && <p variant='primary'>Login Failed</p>}
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" name="email" placeholder="Enter email" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" name="password" placeholder="Password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          </Form.Group>
-          <Row >
-            <Col className='text-end'>
-              <Button variant="primary" type="submit">
-                Login
-              </Button>
-              <br />
-              <Form.Text className="text-muted">
-                Don't have an account? Sign up <a  style={{cursor:'pointer'}} onClick={()=>navigate('/users/register')}>here</a>
-              </Form.Text>
-            </Col>
-          </Row>
-        </Form>
-          <p className="text-center m-1 mt-3">To explore features without Login ID - <Button variant="secondary" onClick={handleDemo}>Demo</Button> </p>
+          <p className='text-center'> Singaporean app to keep track of expenses amongst friends </p>
+        {
+        isloading ?
+        <Row className='justify-content-center'>
+          <div className="spinner-grow" role="status"></div>
+          <div className="spinner-grow" role="status"></div>
+          <div className="spinner-grow" role="status"></div>
+        </Row>  
+        :
+        <Row>
+          <Col className='d-none d-md-block'>
+            <img className='img-fluid' src={img} alt="" />
+          </Col>
+          <Col>
+          <Form method="post" onSubmit={handleSubmit} className="border p-4">
+            <Form.Group className="mb-3 " controlId="formBasicEmail">
+              <h2 className='text-center'>Login</h2>
+              {loginFail && <p variant='primary'>Login Failed</p>}
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" name="email" placeholder="Enter email" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" placeholder="Password" />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            </Form.Group>
+            <Row >
+              <Col className='text-end'>
+                <Button variant="primary" type="submit">
+                  Login
+                </Button>
+                <br />
+                <Form.Text className="text-muted">
+                  Don't have an account? Sign up <a  style={{cursor:'pointer'}} onClick={()=>navigate('/users/register')}>here</a>
+                </Form.Text>
+              </Col>
+            </Row>
+          </Form>
+          </Col>
+        </Row>
+        }
+          <p className="text-end m-1 mt-3">To explore features without Login ID - <Button variant="secondary" onClick={handleDemo}>Demo</Button> </p>
       </Container>  
     </Col>
+   
     </Row>
   );
 }
