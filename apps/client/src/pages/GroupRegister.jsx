@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import {useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -13,7 +14,8 @@ import {faPeopleGroup} from '@fortawesome/free-solid-svg-icons'
 
 const GroupRegister = () => {
   const navigate = useNavigate()
-  const [selectedUserList, setSelectedUserList] = useState([]);
+  const loggedInUser = useSelector((state)=>state.user)
+  const [selectedUserList, setSelectedUserList] = useState([loggedInUser]);
   const [userSearchResults, setUserSearchResults] = useState([
     { id: 1, name: "A", email: "A" },
     { id: 2, name: "B", email: "B" },

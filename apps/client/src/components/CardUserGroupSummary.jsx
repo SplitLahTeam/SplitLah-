@@ -47,9 +47,9 @@ const CardUserGroupSummary = () => {
           <ul>
             <Card.Text>            
               {userGroups.map((group, idx) => (
-                <Button key={idx} style={{minWidth:"130px"}} className='m-2' onClick={handleGroupClick(group._id)}>{group.name}</Button>
+                <Button key={idx} style={{minWidth:"180px"}} className='m-2' onClick={handleGroupClick(group._id)}>{group.name}</Button>
               ))}
-              <Button className='d-block text-center mx-auto mt-3' variant='secondary' onClick={handleAddGroupClick}>Create a New group</Button>            
+              <Button style={{width:"180px"}} className='d-block text-center mt-4 m-2' variant='secondary' onClick={handleAddGroupClick}>Create a New group</Button>            
             </Card.Text>
           </ul>      
         </Card.Body>

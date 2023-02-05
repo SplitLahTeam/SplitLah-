@@ -39,21 +39,24 @@ const NavBar = () => {
       <Navbar bg="dark" variant="dark" expand={"sm"}>
       <Container fluid>
         <Navbar.Brand  style={{cursor:'pointer'}} onClick={handleBrandTxtClick}>Split-Lah!</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          {userLoggedIn && <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <Nav.Link onClick={handleDashboardTxtClick}>My Dashboard</Nav.Link>
-            <Nav.Link onClick={handleGroupsTxtClick}>My Groups</Nav.Link>
-          </Nav>}
-        </Navbar.Collapse>
-          {userLoggedIn && <Nav className="ms-auto">
-            {userLoggedIn && <div><p className='text-light text-center p-0 m-0 mx-1 d-none d-sm-block'>Hi! </p> <p className='text-light text-center p-0 m-0 mx-1'>{user.name}</p></div>}
-            {userLoggedIn && <Button  onClick={handleLogOutButtonClick} variant="danger">Log out</Button>}
-          </Nav>}
+        {userLoggedIn && 
+        <>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: '100px' }}
+              navbarScroll
+            >
+              <Nav.Link onClick={handleDashboardTxtClick}>My Dashboard</Nav.Link>
+              <Nav.Link onClick={handleGroupsTxtClick}>My Groups</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+          <Nav className="ms-auto">
+            <div><p className='text-light text-center p-0 m-0 mx-1 d-none d-sm-block'>Hi! </p> <p className='text-light text-center p-0 m-0 mx-1'>{user.name}</p></div>
+            <Button  onClick={handleLogOutButtonClick} variant="danger">Log out</Button>
+          </Nav>
+        </>}
       </Container>
       </Navbar>
 
